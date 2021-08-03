@@ -128,7 +128,46 @@ void replacePi (const string &s) {
 }
 
 void towerOfHanoi (int n, char src, char dest, char help) {
-    // we have to move n discs from src to dest using help. For that we move the top n-1 discs from src to help 
+    // we have to move n discs from src to dest using help. For that we move the top n-1 discs from src to help using dest as helping rod and then move the nth disc (biggest one) from source to dest using helping rod and then move the other n-1 discs to dest using using src as help
+    if (n == 0) 
+        return;
+    towerOfHanoi(n-1, src, help, dest);
+    cout << "Move from " << src << " to " << dest << endl;
+    towerOfHanoi(n-1, help, dest, src);
+}
+
+// my way
+/* void removeDuplicates (const string &s) {
+    // if s = "aaaaabbbbccchhhh" then print/return abch 
+    if (s.length() == 0)
+        return;
+    if (s[0] != s[1])
+        cout << s[0];
+    removeDuplicates(s.substr(1));
+    
+} */
+
+// we will send the whole string except the first character to the recursive function assuming that the function will return the string removing all duplicates then we will compare the first char to the first character of the returned string and if they are equal then we will only return the returned string otherwise we will return char + returned string
+/* string removeDuplicates (const string &s) {
+    if (s.length() == 0)
+        return "";
+    char ch = s[0];
+    string ans = removeDuplicates(s.substr(1));   // will go to the last of substr then remove duplicates
+    if (ans[0] == ch)
+        return ans;
+    return ch+ans;
+}
+ */
+string moveXtoLast (const string &s) {
+    // we will be given a string and we have to move all the x in it to last position.
+    // similar thought process like the last question we will compare first char and the remaining string and if first char is x we will add it to last and return
+    if (s.length() == 0)
+        return "";
+    char ch = s[0];
+    string ans = moveXtoLast(s.substr(1));
+    if (ch == 'x')
+        return ans + ch;
+    return ch + ans;
 }
 
 int main () {
@@ -147,5 +186,8 @@ int main () {
     getline(cin, s);
     // reverse(s, 0, s.length());
     // cout << s << endl;
-    replacePi(s);
+    //replacePi(s);
+    //towerOfHanoi(3, 'A', 'C', 'B');
+    cout << moveXtoLast(s) << endl;
+
 }
