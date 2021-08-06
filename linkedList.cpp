@@ -16,6 +16,7 @@ void traverse (Node *head) {
 		cout << curr->data << endl;
 		curr = curr->next;
 	}
+    cout << endl;
 }
 
 // output will be same even if use the below code and also linked list won't be changed
@@ -43,18 +44,63 @@ Node* insertBegin (Node *head, int element) {
 }
 
 Node* insertEnd (Node *head, int element) {
+    Node *temp = new Node (element);
     if (head == NULL) {
-        Node *x = new Node (element);
-        return x;
+        return temp;
     }
-    Node *temp = head;
-    while (temp->next != NULL) {
-        temp = temp->next;
+    Node *curr = head;
+    while (curr->next != NULL) {
+        curr = curr->next;
     }
-    temp->next = new Node (element);
+    curr->next = temp;
     return head;
 }
 
+// don't forget to deallocate memory of the nodes you are deleting
+Node *deleteHead (Node *head) {
+    if (head == NULL)
+        return head;
+    Node *temp = head->next;
+    delete head;
+    return temp;
+}
+
+Node *deleteTail (Node *head) {
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+
+    Node *curr = head;
+    while (curr->next->next != NULL) {
+        curr = curr->next;
+    }
+    delete curr->next;
+    curr->next = NULL;
+    return head;
+    
+}
+
+Node *insertPos (Node *head, int data, int pos) {
+    Node *newNode = new Node (data);
+
+    // we have to change head if pos is 1
+    if (pos == 1) {
+        newNode->next = head;
+        return newNode;
+    }
+    Node *curr = head;
+    for (int i=1; i<pos-1 && curr != NULL; i++) {
+        curr = curr->next;
+    }
+    if (curr == NULL)
+        return head;
+    newNode->next = curr->next;
+    curr->next = newNode;
+    return head;
+}
 int main() 
 { 
     // simple implementation
@@ -85,6 +131,10 @@ int main()
     head = insertEnd(head, 20);
     head = insertEnd(head, 30);
     head = insertEnd(head, 40);
+    traverse(head);
+    //head = deleteHead(head);
+    //head = deleteTail(head);
+    head = insertPos(head, 25, 6);
     traverse(head);
     return 0;
 } 
