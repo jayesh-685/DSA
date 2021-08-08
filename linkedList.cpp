@@ -101,6 +101,44 @@ Node *insertPos (Node *head, int data, int pos) {
     curr->next = newNode;
     return head;
 }
+
+// int searchLL (Node * head, int x) {
+//     Node *curr = head;
+//     int pos = 1;
+//     while (curr != NULL) {
+//         if (curr->data == x)
+// 	        return pos;
+//         curr = curr->next;
+//         pos++;
+//     }
+//     return -1;
+// }
+
+// recursive solution
+// int searchLL (Node * head, int x, int pos) {
+//     if (head == NULL)
+//         return -1;
+//     if (head->data == x)
+//         return pos;
+//     return searchLL (head->next, x, ++pos);
+// }
+
+// recursive with 2 arguments
+
+int searchLL (Node *head, int x) {
+    if (head == NULL)
+        return -1;
+    if (head->data == x)
+        return 1;
+    else {
+        int result = searchLL (head->next, x);
+        if (result == -1)
+            return -1;
+        else 
+            return result + 1;
+    }
+}
+
 int main() 
 { 
     // simple implementation
@@ -134,7 +172,8 @@ int main()
     traverse(head);
     //head = deleteHead(head);
     //head = deleteTail(head);
-    head = insertPos(head, 25, 6);
-    traverse(head);
+    // head = insertPos(head, 25, 6);
+    // traverse(head);
+    cout << searchLL (head, 10) << endl;
     return 0;
 } 
