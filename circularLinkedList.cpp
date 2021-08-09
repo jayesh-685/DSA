@@ -22,7 +22,31 @@ void traverse (Node* head) {
         cout << curr->data << " ";
         curr = curr->next;
     } while (curr != head);
-    
+    cout << endl;
+}
+
+// O(n)
+// Node* insertBegin (Node* head, int data) {
+//     Node* newHead = new Node (data);
+//     if (head == NULL) {
+//         newHead->next = newHead;
+//     } else {
+//         Node* curr = head;
+//         while (curr->next != head)
+//             curr = curr->next;
+//         curr->next = newHead;
+//         newHead->next = head;
+//     }
+//     return newHead;
+// }
+
+// O(1)  insert the new element after the head then exchange the head and newNode data
+Node* insertBegin (Node* head, int data) {
+    Node* newHead = new Node (head->data);
+    head->data = data;
+    newHead->next = head->next;
+    head->next = newHead;
+    return head;
 }
 
 int main () {
@@ -32,5 +56,7 @@ int main () {
 	head->next=temp1;
 	temp1->next=temp2;
     temp2->next = head;
+    traverse(head);
+    head = insertBegin(head, 5);
     traverse(head);
 }
