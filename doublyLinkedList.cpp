@@ -1,6 +1,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
+// have 2 pointers next and prev
 struct Node {
     int data;
     Node* prev;
@@ -17,6 +18,7 @@ void traverse (Node* head) {
         cout << head->data << endl;
         head = head->next;
     }
+    cout << endl;
 }
 
 Node* insertBegin (Node* head, int data) {
@@ -76,6 +78,35 @@ Node* reverseDLL (Node* head) {
     return temp->prev;
 }
 
+Node* deleteHead (Node* head) {
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    } 
+    Node* newHead = head->next;
+    newHead->prev = NULL;
+    delete head;
+    return newHead;
+}
+
+Node* deleteTail (Node* head) {
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+    Node* curr = head;
+    while (curr->next->next != NULL) {
+        curr = curr->next;
+    }
+    delete curr->next;
+    curr->next = NULL;
+    return head;
+}
+
 int main () {
     // Node *head = new Node (10);
     // head->next = new Node (20);
@@ -90,13 +121,6 @@ int main () {
     head = insertEnd(head, 40);
     head = insertEnd(head, 50);
     traverse(head);
-    head = reverseDLL(head);
+    head = deleteTail(head);
     traverse(head);
-
-    Node* temp = NULL;
-    temp = reverseDLL(temp);
-    traverse(temp);
-    temp = insertEnd(temp, 10);
-    temp = reverseDLL(temp);
-    traverse(temp);
 }
