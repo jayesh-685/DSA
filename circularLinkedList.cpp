@@ -43,20 +43,46 @@ void traverse (Node* head) {
 // O(1)  insert the new element after the head then exchange the head and newNode data
 Node* insertBegin (Node* head, int data) {
     Node* newHead = new Node (head->data);
-    head->data = data;
+    if (head == NULL) {
+        Node* newNode = new Node (data);
+        newNode->next = newNode;
+        return newNode;
+    }
+    head->data = data;  
     newHead->next = head->next;
     head->next = newHead;
     return head;
 }
 
+Node* insertEnd (Node* head, int data) {
+    Node* newEnd = new Node (data);
+    if (head == NULL) {
+        newEnd->next = newEnd;
+        return newEnd;
+    }
+    Node* curr = head;
+    while (curr->next != head) 
+        curr = curr->next;
+    curr->next = newEnd;
+    newEnd->next = head;
+    return head;
+}
+
 int main () {
-    Node *head=new Node(10);
-	Node *temp1=new Node(20);
-	Node *temp2=new Node(30);
-	head->next=temp1;
-	temp1->next=temp2;
-    temp2->next = head;
-    traverse(head);
-    head = insertBegin(head, 5);
-    traverse(head);
+    // Node *head=new Node(10);
+	// Node *temp1=new Node(20);
+	// Node *temp2=new Node(30);
+	// head->next=temp1;
+	// temp1->next=temp2;
+    // temp2->next = head;
+    // traverse(head);
+    // head = insertBegin(head, 5);
+    // head = insertEnd(head, 40);
+    // traverse(head);
+    Node* temp1 = NULL;
+    temp1 = insertEnd(temp1, 29);
+    traverse(temp1);
+    Node* temp2 = NULL;
+    temp2 = insertBegin(temp2, 6);
+    traverse(temp2);
 }
