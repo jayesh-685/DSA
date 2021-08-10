@@ -42,17 +42,32 @@ void traverse (Node* head) {
 
 // O(1)  insert the new element after the head then exchange the head and newNode data
 Node* insertBegin (Node* head, int data) {
-    Node* newHead = new Node (head->data);
     if (head == NULL) {
         Node* newNode = new Node (data);
         newNode->next = newNode;
         return newNode;
     }
+    // here I created new node with exchanged data or you can create new node first and then exchange data
+    Node* newHead = new Node (head->data);
     head->data = data;  
     newHead->next = head->next;
     head->next = newHead;
     return head;
 }
+
+// Node* insertEnd (Node* head, int data) {
+//     Node* newEnd = new Node (data);
+//     if (head == NULL) {
+//         newEnd->next = newEnd;
+//         return newEnd;
+//     }
+//     Node* curr = head;
+//     while (curr->next != head) 
+//         curr = curr->next;
+//     curr->next = newEnd;
+//     newEnd->next = head;
+//     return head;
+// }
 
 Node* insertEnd (Node* head, int data) {
     Node* newEnd = new Node (data);
@@ -60,14 +75,54 @@ Node* insertEnd (Node* head, int data) {
         newEnd->next = newEnd;
         return newEnd;
     }
-    Node* curr = head;
-    while (curr->next != head) 
-        curr = curr->next;
-    curr->next = newEnd;
-    newEnd->next = head;
+    newEnd->next = head->next;
+    head->next = newEnd;
+    int temp = head->data;
+    head->data = newEnd->data;
+    newEnd->data = temp;
+    return newEnd;
+}
+
+// Node* deleteHead (Node* head) {
+//     if (head == NULL)
+//         return NULL;
+//     if (head->next == NULL) {
+//         delete head;
+//         return NULL;
+//     }
+//     Node* curr = head;
+//     while (curr->next != head)
+//         curr = curr->next;
+//     curr->next = head->next;
+//     delete head;
+//     return curr->next;
+// }
+
+Node* deleteHead (Node* head) {
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+    head->data = head->next->data;
+    Node* temp = head->next;
+    head->next = head->next->next;
+    delete temp;
     return head;
 }
 
+Node* deleteKthNode (Node* head, int k) {
+    // assuming no of nodes >= k 
+    Node* curr = head;
+    for (int i=1; i<k-1; i++) {
+        curr = curr->next;
+    }
+    Node* temp = curr->next;
+    curr->next = curr->next->next;
+    delete temp;
+    return head; 
+}
 int main () {
     // Node *head=new Node(10);
 	// Node *temp1=new Node(20);
@@ -79,10 +134,21 @@ int main () {
     // head = insertBegin(head, 5);
     // head = insertEnd(head, 40);
     // traverse(head);
-    Node* temp1 = NULL;
-    temp1 = insertEnd(temp1, 29);
-    traverse(temp1);
-    Node* temp2 = NULL;
-    temp2 = insertBegin(temp2, 6);
-    traverse(temp2);
+    // Node* temp1 = NULL;
+    // temp1 = insertEnd(temp1, 29);
+    // traverse(temp1);
+    // Node* temp2 = NULL;
+    // temp2 = insertBegin(temp2, 6);
+    // traverse(temp2);
+    Node* head = NULL;
+    head = insertEnd(head, 10);
+    head = insertEnd(head, 20);
+    head = insertEnd(head, 30);
+    head = insertEnd(head, 40);
+    traverse(head);
+    // head = insertEnd(head, 50);
+    // traverse(head);
+    head = deleteKthNode(head, 2);
+    traverse(head);
 }
+
