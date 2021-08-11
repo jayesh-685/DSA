@@ -156,15 +156,51 @@ Node* insertSorted (Node* head, int x) {
     return head;
 }
 
-int middleElement (Node* head) {
+void middleElement (Node* head) {
+// by traversing only once
     if (head == NULL) 
-        return -1;
+        return ;
+    Node* slow = head;
+    Node* fast = head;
+    while (fast != NULL && fast->next != NULL) {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    cout << slow->data << endl;
+}
+
+/* void nFromEnd (Node* head, int n) {
+    // print nth element from the end
     int count = 1;
     Node* curr = head;
     while (curr->next != NULL) {
         curr = curr->next;
         count++;
     }
+    int steps = count-n;
+    if (steps < 0)
+        return;
+    curr = head;
+    for (int i=0; i<steps; i++)
+        curr = curr->next;
+    cout << curr->data << endl;
+} */
+
+// better two pointer approach
+
+void nFromEnd (Node* head, int n) {
+    Node* first = head;
+    Node* second = head;
+    for (int i=1; i<n; i++) {
+        first = first->next;
+        if (first == NULL)
+            return;
+    }
+    while (first->next != NULL) {
+        first = first->next;
+        second = second->next;
+    }
+    cout << second->data << endl;
 }
 
 int main() 
@@ -203,7 +239,9 @@ int main()
     // head = insertPos(head, 25, 6);
     // traverse(head);
     //cout << searchLL (head, 10) << endl;
-    head = insertSorted(head, 20);
-    traverse(head);
+    // head = insertSorted(head, 20);
+    // traverse(head);
+    //middleElement(head);
+    nFromEnd(head, 4);
     return 0;
 } 
