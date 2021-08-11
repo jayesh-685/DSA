@@ -13,7 +13,7 @@ struct Node{
 void traverse (Node *head) {
     Node *curr = head;
 	while (curr != NULL) {
-		cout << curr->data << endl;
+		cout << curr->data << " ";
 		curr = curr->next;
 	}
     cout << endl;
@@ -139,6 +139,34 @@ int searchLL (Node *head, int x) {
     }
 }
 
+Node* insertSorted (Node* head, int x) {
+    // insert a node in given linked list such that it remains sorted
+    Node* newNode = new Node (x);
+    if (head == NULL) 
+        return newNode;
+    if (head->data >= x) {
+        newNode->next = head;
+        return newNode;
+    }
+    Node* curr = head;
+    while (curr->next != NULL && curr->next->data < x)
+        curr = curr->next;
+    newNode->next = curr->next;
+    curr->next = newNode;
+    return head;
+}
+
+int middleElement (Node* head) {
+    if (head == NULL) 
+        return -1;
+    int count = 1;
+    Node* curr = head;
+    while (curr->next != NULL) {
+        curr = curr->next;
+        count++;
+    }
+}
+
 int main() 
 { 
     // simple implementation
@@ -174,6 +202,8 @@ int main()
     //head = deleteTail(head);
     // head = insertPos(head, 25, 6);
     // traverse(head);
-    cout << searchLL (head, 10) << endl;
+    //cout << searchLL (head, 10) << endl;
+    head = insertSorted(head, 20);
+    traverse(head);
     return 0;
 } 

@@ -39,6 +39,7 @@ Node* insertHead (Node* head, int data) {
 }
 
 Node* insertEnd (Node* head, int data) {
+    // basically insertHead except we will return the same head instead of newEnd
     Node* newEnd = new Node (data);
     if (head == NULL) {
         newEnd->next = newEnd;
