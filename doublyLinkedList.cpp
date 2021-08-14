@@ -107,6 +107,25 @@ Node* deleteTail (Node* head) {
     return head;
 }
 
+void addNode(Node *head, int pos, int data)
+{
+   // Your code here
+   Node* newNode = new Node (data);
+   Node* curr = head;
+   if (head == NULL) head = newNode;
+   for (int i=0; i<pos; i++) {
+       if (curr->next == NULL)
+        break;
+       curr = curr->next;
+   }
+   newNode->next = curr->next;
+   curr->next = newNode;
+   newNode->prev = curr;
+   if (newNode->next != NULL)
+    newNode->next->prev = newNode;
+     
+}
+
 int main () {
     // Node *head = new Node (10);
     // head->next = new Node (20);
@@ -121,6 +140,6 @@ int main () {
     head = insertEnd(head, 40);
     head = insertEnd(head, 50);
     traverse(head);
-    head = deleteTail(head);
+    addNode(head, 4, 35);
     traverse(head);
 }

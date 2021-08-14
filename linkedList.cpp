@@ -203,6 +203,51 @@ void nFromEnd (Node* head, int n) {
     cout << second->data << endl;
 }
 
+Node* reverseLL (Node* head) {
+    Node* before = NULL;
+    Node* curr = head;
+    Node* after = head;
+    while (after != NULL) {
+        after = after->next;
+        curr->next = before;
+        before = curr;
+        curr = after;
+    }
+    return before;
+}
+
+Node* recursiveReverse (Node* head) {
+    // assume that if we pass the complete linked list except the first element it will return the last node as the head and the ll would be reversed.
+    if (head == NULL) return NULL;
+    if (head->next == NULL) return head;
+    Node* restHead = recursiveReverse(head->next);
+    Node* restTail = head->next;  // it would be the second element
+    restTail->next = head;
+    head->next = NULL;
+    return restHead;
+}
+
+/* Node* recursiveReverse (Node* head) {
+    Node* restHead = recursiveReverse(head->next);
+    
+} */
+
+// since we will never be changing head return type is void
+void removeDuplicate (Node* head) {
+    if (head == NULL) // we can cover this cover case in while loop as well 
+        return;
+    Node* curr = head;
+    while (curr->next != NULL) {
+        if (curr->data != curr->next->data) {
+            curr = curr->next;
+        } else {
+            Node* duplicate = curr->next;
+            curr->next = curr->next->next;
+            delete duplicate;
+        }
+    }
+}
+
 int main() 
 { 
     // simple implementation
@@ -240,8 +285,10 @@ int main()
     // traverse(head);
     //cout << searchLL (head, 10) << endl;
     // head = insertSorted(head, 20);
-    // traverse(head);
+    // traverse(head);  
     //middleElement(head);
-    nFromEnd(head, 4);
+    //nFromEnd(head, 4);
+    removeDuplicate(head);
+    traverse(head);
     return 0;
 } 
