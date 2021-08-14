@@ -1,7 +1,8 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-struct myStack {
+// array implementation
+/* struct myStack {
     int* arr;
     int cap;    // capacity of stack;
     int top;    // index of topmost element
@@ -50,10 +51,38 @@ struct myStack {
     bool isEmpty () {
         return (top == -1);
     }
+}; */
+
+struct myStack {
+    vector <int> vec;
+
+    // to add an element to the stack
+    void push (int x) {
+        vec.push_back(x);
+    }
+
+    // returning last element and removing it
+    int pop () {
+        int last = vec.back();
+        vec.pop_back();
+        return last;
+    }
+
+    int peek () {
+        return vec.back();
+    }
+
+    int size () {
+        return vec.size();
+    }
+
+    bool isEmpty () {
+        return vec.empty();
+    }
 };
 
 int main () {
-    myStack s (5);
+    myStack s;
     s.push(1);
     s.push(2);
     s.push(3);
