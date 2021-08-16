@@ -53,7 +53,8 @@ using namespace std;
     }
 }; */
 
-struct myStack {
+// vector implementation
+/* struct myStack {
     vector <int> vec;
 
     // to add an element to the stack
@@ -79,6 +80,55 @@ struct myStack {
     bool isEmpty () {
         return vec.empty();
     }
+}; */
+
+struct Node {
+    int data;
+    Node* next;
+    Node (int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+// insert at head and delete head since deleting at tail won't be possible in O(1) in singly linke list. Possible in doubly linked list though
+// all operations are O(1)
+struct myStack {
+    Node* head = NULL;
+    int count = 0;
+
+    void push (int n) {
+        Node* newNode = new Node (n);
+        newNode->next = head;
+        head = newNode;
+        count++;
+    }
+
+    int pop () {
+        if (head == NULL)
+            return INT_MIN;
+        int res = head->data;
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        count--;
+        return res;
+    }
+
+    int size () {
+        return count;
+    }
+
+    int peek () {
+        if (head == NULL)
+            return INT_MIN;
+        return head->data;
+    }
+
+    bool isEmpty () {
+        return (head == NULL);
+    }
+
 };
 
 int main () {
@@ -90,4 +140,13 @@ int main () {
     s.push(5);
     cout << s.peek() << " " << s.size() << endl;
     cout << s.pop() << " " << s.peek() << " " << s.size() << endl;
+
+    stack <int> st;
+    st.push(5);
+    st.push(15);
+    st.push(25);
+    while (!st.empty()) {
+        cout << st.top() << endl;
+        st.pop();
+    }
 }
