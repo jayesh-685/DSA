@@ -120,14 +120,36 @@ struct kStacks {
 }; 
 
 // given the stock price on each day, you have to calculate span for each day which is the no of days stock price was less or equal including that day
-void stockSpan (int arr[], int n) {
+// this is O(n^2)... not good
+/* void stockSpan (int arr[], int n) {
     for (int i=0; i<n; i++) {
-        int spanCount = 1;
+        int span = 1;
         for (int j=i-1; j>=0 && arr[j] <= arr[i]; j--) 
-            spanCount++;
-        cout << spanCount << " ";
+            span++;
+        cout << span << " ";
+    }
+} */
+
+// to find span we just need the index of previous greater element and if there isn't any span is i+1
+// to keep track of previous greater element we push them to the stack (we basically end up with a stack containing elements in decreasing order)
+
+void stockSpan (int arr[], int n) {
+    // for the first element prev greater element is itself and span is 1
+    stack <int> prevGreater;
+    prevGreater.push(arr[0]);
+    cout << 1 << " ";
+    
+    for (int i=1; i<n; i++) {
+        while (!prevGreater.empty() && arr[prevGreater.top()] < arr[i]) {
+            prevGreater.pop();
+        }
+        int span = prevGreater.empty() ? i+1 : i-prevGreater.top(); 
+        cout << span << " ";
+        prevGreater.push(i);
     }
 }
+
+
 
 int main () {
     /* string s;
