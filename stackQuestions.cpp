@@ -136,7 +136,7 @@ struct kStacks {
 void stockSpan (int arr[], int n) {
     // for the first element prev greater element is itself and span is 1
     stack <int> prevGreater;
-    prevGreater.push(arr[0]);
+    prevGreater.push(0);
     cout << 1 << " ";
     
     for (int i=1; i<n; i++) {
@@ -146,6 +146,21 @@ void stockSpan (int arr[], int n) {
         int span = prevGreater.empty() ? i+1 : i-prevGreater.top(); 
         cout << span << " ";
         prevGreater.push(i);
+    }
+}
+
+void prevGreaterElement (int arr[], int n) {
+    stack <int> prevGreater;
+    cout << -1 << " ";
+    prevGreater.push(arr[0]);
+
+    for (int i=1; i<n; i++) {
+        while (!prevGreater.empty() && prevGreater.top() <= arr[i]) {
+            prevGreater.pop();
+        }
+        int element = prevGreater.empty() ? -1 : prevGreater.top();
+        cout << element << " ";
+        prevGreater.push(arr[i]);
     }
 }
 
@@ -170,7 +185,7 @@ int main () {
     cout << s.pop(0) << endl; */
 
     int arr[] = {13, 15, 12, 14, 16, 8, 6, 4, 10, 30};
-    stockSpan(arr, 10);
+    prevGreaterElement(arr, 10);
     
     return 0;
 }
