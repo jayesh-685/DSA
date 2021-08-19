@@ -148,13 +148,12 @@ void stockSpan (int arr[], int n) {
         prevGreater.push(i);
     }
 }
+// time complexity is Theta(n) since we will be pushing and popping each element at most once and auxillary space required is O(n) with the worst case being when array is sorted in decreasing order
 
 void prevGreaterElement (int arr[], int n) {
     stack <int> prevGreater;
-    cout << -1 << " ";
-    prevGreater.push(arr[0]);
 
-    for (int i=1; i<n; i++) {
+    for (int i=0; i<n; i++) {
         while (!prevGreater.empty() && prevGreater.top() <= arr[i]) {
             prevGreater.pop();
         }
@@ -164,7 +163,34 @@ void prevGreaterElement (int arr[], int n) {
     }
 }
 
+void nextGreaterElement (int arr[], int n) {
+    stack <int> nextGreater;
 
+    for (int i=n-1; i>=0; i--) {
+        while (!nextGreater.empty() && nextGreater.top() <= arr[i]) {
+            nextGreater.pop();
+        }
+        int element = nextGreater.empty() ? -1 : nextGreater.top();
+        cout << element << " ";
+        nextGreater.push(arr[i]);
+    }
+}
+
+// area of largest triangle than can be formed in a bar graph
+int largestRectHistogram (int arr[], int n) {
+    int maxArea = INT_MIN;
+    for (int i=0; i<n; i++) {
+        int leftCount = 0;
+        for (int j=i-1; j>=0 && arr[j]>=arr[i]; j--)
+            leftCount++;
+        int rightCount = 0;
+        for (int k=i+1; k<n && arr[k]>=arr[i]; k++)
+            rightCount++;
+        maxArea = max(maxArea, (leftCount+rightCount+1)*arr[i]);
+    }
+    return maxArea;
+    // Theta(N^2)
+}
 
 int main () {
     /* string s;
@@ -184,8 +210,8 @@ int main () {
     cout << s.pop(1) << endl;
     cout << s.pop(0) << endl; */
 
-    int arr[] = {13, 15, 12, 14, 16, 8, 6, 4, 10, 30};
-    prevGreaterElement(arr, 10);
+    int arr[] = {6, 2, 5, 4, 1, 5, 6};
+    cout << largestRectHistogram(arr, 7);
     
     return 0;
-}
+}               

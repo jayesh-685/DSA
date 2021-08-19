@@ -1,50 +1,61 @@
-#include "bits/stdc++.h"
+// { Driver Code Starts
+//Initial template for C++
+
+#include<bits/stdc++.h>
 using namespace std;
 
+ // } Driver Code Ends
+//User function template for C++
+
+class Solution
+{
+    public:
+    //Function to delete middle element of a stack.
+    //int count = 0;
+    void deleteMid(stack<int>&s, int sizeOfStack)
+    {
+        // code here.. 
+        if (s.size() == sizeOfStack/2) {
+            s.pop();
+            return;
+        }
+        int temp = s.top();
+		cout << temp << endl;
+        s.pop();
+        //count++;
+        deleteMid (s, sizeOfStack);
+        s.push(temp);
+    }
+};
+
+// { Driver Code Starts.
 int main() {
-	// your code goes here
-	int T;
-	cin >> T;
-	while (T--) {
-	    int N, M, Q;
-		cin >> N >> M >> Q;
-		int inBus = 0;
-		int arr[M+1] = {0};
-		char action, temp;
-		int passenger;
-		bool consistent = true;
-		for (int k=0; k<Q; k++) {
-			if (inBus > M) {
-				consistent = false;
-				break;
-			}
-			cin >> action;
-			cin.sync();
-			cin >> passenger;
-			if (action == '+') {
-				if (arr[passenger] == 1) {
-					cout << "Plus if" << endl;
-					consistent = false;
-					break;
-				} else {
-					inBus++;
-					arr[passenger]++;
-				}
-			} else {
-				if (arr[passenger] == 0) {
-					cout << "Minus if" << endl;
-					consistent = false;
-					break;
-				} else {
-					inBus--;
-					arr[passenger]--;
-				}
-			}
-		}
-		if (consistent)
-			cout << "Consistent" << endl;
-		else
-			cout << "Inconsistent" << endl;
-	}
-	return 0;
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        int sizeOfStack;
+        cin>>sizeOfStack;
+        
+        stack<int> myStack;
+        
+        for(int i=0;i<sizeOfStack;i++)
+        {
+            int x;
+            cin>>x;
+            myStack.push(x);    
+        }
+
+            Solution ob;
+            ob.deleteMid(myStack,myStack.size());
+            while(!myStack.empty())
+            {
+                cout<<myStack.top()<<" ";
+                myStack.pop();
+            }
+        cout<<endl;
+    }   
+    return 0;
 }
+  // } Driver Code Ends
