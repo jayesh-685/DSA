@@ -177,7 +177,7 @@ void nextGreaterElement (int arr[], int n) {
 }
 
 // area of largest triangle than can be formed in a bar graph
-int largestRectHistogram (int arr[], int n) {
+/* int largestRectHistogram (int arr[], int n) {
     int maxArea = INT_MIN;
     for (int i=0; i<n; i++) {
         int leftCount = 0;
@@ -187,9 +187,96 @@ int largestRectHistogram (int arr[], int n) {
         for (int k=i+1; k<n && arr[k]>=arr[i]; k++)
             rightCount++;
         maxArea = max(maxArea, (leftCount+rightCount+1)*arr[i]);
+        cout << (leftCount+rightCount+1)*arr[i] << " ";
     }
     return maxArea;
     // Theta(N^2)
+} */
+
+// we will calculate prev smaller and next smaller element like we have calculated prev bigger and next bigger element
+
+vector <int> prevSmaller (int arr[], int n) {
+    stack <int> s;
+    vector <int> vec;
+
+    for (int i=0; i<n; i++) {
+        int count = 0;
+        while (!s.empty() && s.top() >= arr[i]) {
+            count++;
+            s.pop();
+        }
+        count = s.empty() ? i : count;
+        vec.push_back(count);
+        s.push(arr[i]);
+    }
+    for (int i : vec)
+        cout << i << " ";
+    cout << endl;
+    return vec;
+}
+
+vector <int> nextSmaller (int arr[], int n) {
+    stack <int> s;
+    vector <int> vec;
+
+    for (int i=n-1; i>=0; i--) {
+        int count=0;
+        while (!s.empty() && s.top() >= arr[i]) {
+            count++;
+            s.pop();
+        }
+        count = s.empty() ? n-i-1 : count;
+        vec.push_back(count);
+        s.push(arr[i]);
+    }
+    reverse(vec.begin(), vec.end());
+    for (int i : vec) 
+        cout << i << " ";
+    cout << endl;
+    return vec;
+}
+
+int largestRectHistogram (int arr[], int n) {
+    vector <int> left = prevSmaller(arr, n);
+    vector <int> right = nextSmaller(arr, n);
+
+    int maxArea = INT_MIN;
+    for (int i=0; i<n; i++) {
+        int area = ((left[i]+right[i]+1)*arr[i]);
+        maxArea = max(maxArea, area);
+        cout << area << " ";
+    }
+    cout << endl;
+    return maxArea;
+    // O(n)
+}
+
+// modify push and pop operations to get minimum element in O(1)
+// we will use a main stack and a auxillary stack but will push and pop in aux stack only when necessary
+// time complexity is O(n) and aux space is O(1) since aux stack uses much less space than main stack
+
+stack <int> ms;
+stack <int> as;
+
+void _push (int x) {
+    if (ms.empty()) {
+        ms.push(x);
+        as.push(x);  
+    } else {
+        if (x <= as.top())
+            as.push(x);
+        ms.push(x);
+    }
+}
+
+void _pop () {
+    if (ms.top() == as.top())
+        as.pop();
+    ms.pop();
+}
+
+int getMin () {
+    return as.top();
 }
 
 int main () {
@@ -212,6 +299,21 @@ int main () {
 
     int arr[] = {6, 2, 5, 4, 1, 5, 6};
     cout << largestRectHistogram(arr, 7);
+
+    _push(10);
+    _push(5);
+    _push(6);
+    _push(2);
+    _push(2);
+
+    cout << getMin() << endl;
+    _pop();
+    cout << getMin() << endl;
+    _pop();
+    cout << getMin() << endl;
+    _pop();
+    cout << getMin() << endl;
+    _pop();
     
     return 0;
 }               
