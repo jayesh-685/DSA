@@ -297,10 +297,10 @@ int main () {
     cout << s.pop(1) << endl;
     cout << s.pop(0) << endl; */
 
-    int arr[] = {6, 2, 5, 4, 1, 5, 6};
-    cout << largestRectHistogram(arr, 7);
+    /* int arr[] = {6, 2, 5, 4, 1, 5, 6};
+    cout << largestRectHistogram(arr, 7); */
 
-    _push(10);
+    /* _push(10);
     _push(5);
     _push(6);
     _push(2);
@@ -313,7 +313,7 @@ int main () {
     cout << getMin() << endl;
     _pop();
     cout << getMin() << endl;
-    _pop();
+    _pop(); */
     
     return 0;
 }               
