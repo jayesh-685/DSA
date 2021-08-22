@@ -255,7 +255,7 @@ int largestRectHistogram (int arr[], int n) {
 // we will use a main stack and a auxillary stack but will push and pop in aux stack only when necessary
 // time complexity is O(n) and aux space is O(1) since aux stack uses much less space than main stack
 
-stack <int> ms;
+/* stack <int> ms;
 stack <int> as;
 
 void _push (int x) {
@@ -277,6 +277,38 @@ void _pop () {
 
 int getMin () {
     return as.top();
+} */
+
+// now do the same thing without using an aux stack in O(1) aux space, given that all elements in stack are positive
+// we will use a variable to store minimum element. Each time we enocunter a smaller element we push smaller element - min which is a negative element to the stack and update min. So each time we encounter a negative element in the stack while popping we change the min using the negative value
+
+stack <int> s;
+int minElement;
+
+void _push (int x) {
+    if (s.empty()) {
+        s.push(x);
+        minElement = x;
+    } else {
+        if (x < minElement) {
+            s.push(x-minElement);
+            minElement = x;
+        } else {
+            s.push(x);
+        }
+    }
+    //cout << s.top() << endl;
+}
+
+void _pop() {
+    //cout << s.top() << endl;
+    if (s.top() < 0) 
+        minElement = minElement - s.top();
+    s.pop();
+}
+
+int getMin () {
+    return minElement;
 }
 
 int main () {
@@ -300,7 +332,7 @@ int main () {
     /* int arr[] = {6, 2, 5, 4, 1, 5, 6};
     cout << largestRectHistogram(arr, 7); */
 
-    /* _push(10);
+    _push(10);
     _push(5);
     _push(6);
     _push(2);
@@ -313,7 +345,8 @@ int main () {
     cout << getMin() << endl;
     _pop();
     cout << getMin() << endl;
-    _pop(); */
+    _pop();
+    cout << getMin() << endl;
     
     return 0;
 }               
