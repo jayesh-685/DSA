@@ -1,7 +1,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-struct myQueue {
+/* struct myQueue {
     int* arr;
     int size, cap;
 
@@ -45,17 +45,131 @@ struct myQueue {
         return arr[size-1];
     }
         
+}; */
+// here dequeue operation is O(n) to make it O(1) we use circular array
+
+/* struct myQueue {
+    int* arr;
+    int size, cap, front;
+
+    myQueue (int x) {
+        cap = x;
+        size = 0;
+        front = 0;
+        arr = new int [cap];
+    }
+
+    bool isEmpty () {
+        return (size==0);
+    }
+
+    bool isFull () {
+        return (size==cap);
+    }
+
+    void enqueue (int n) {
+        if (isFull())
+            return;
+        int rear = (front + size)%cap;
+        arr[rear] = n;
+        size++;
+    }    
+
+    void dequeue () {
+        if (isEmpty())
+            return;
+        front = (front+1)%cap;
+        size--;
+    }
+
+    int getFront () {
+        if (isEmpty())
+            return INT_MIN;
+        return arr[front];
+    }
+
+    int getRear () {
+        if (isEmpty())
+            return INT_MIN;
+        return arr[(front+size-1)%cap];
+    }
+}; */
+
+// implementing queue using linked list
+
+struct Node {
+    int data;
+    Node* next;
+    Node (int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+struct myQueue {
+    Node* front;
+    Node* rear;
+    int size;
+
+    myQueue () {
+        front = NULL;
+        rear = NULL;
+        size = 0;
+    }
+    
+    bool isEmpty () {
+        return (front == NULL);
+    }
+
+    void enqueue (int n) {
+        Node* newNode = new Node (n);
+        if (isEmpty()) {
+            front = newNode;
+            rear = newNode;
+        } else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+        size++;
+    }
+
+    void dequeue () {
+        if (isEmpty())
+            return;
+        Node* temp = front;
+        front = front->next;
+        if (front == NULL)
+            rear = NULL;
+        delete temp;
+        size--;
+    }
+
+    int getFront () {
+        if (isEmpty())
+            return INT_MIN;
+        return front->data;
+    }
+
+    int getRear () {
+        if (isEmpty())
+            return INT_MIN;
+        return rear->data;
+    }
+
+    int getSize () {
+        return size;
+    }
 };
 
 int main () {
-    myQueue q (10);
+    myQueue q;
     cout << q.isEmpty() << endl;
     q.enqueue(5);
     q.enqueue(10);
     q.enqueue(15);
     q.enqueue(20);
-    cout << q.isEmpty() << " " << q.isFull() << endl;
-    cout << q.getFront() << " " << q.getRear() << endl;
+    cout << q.isEmpty() << endl;
+    cout << q.getFront() << " " << q.getRear() << " " << q.getSize() << endl;
     q.dequeue();
-    cout << q.getFront() << " " << q.getRear() << endl;
+    cout << q.getFront() << " " << q.getRear() << " " << q.getSize() << endl;
 }
