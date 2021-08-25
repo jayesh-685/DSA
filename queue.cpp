@@ -190,4 +190,7 @@ int main () {
         u.pop();
     }
     
+    // queue is a container adapter
+    // by default implemented using dequeue
+    // all operations are O(1)
 }
