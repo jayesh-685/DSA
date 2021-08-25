@@ -172,4 +172,22 @@ int main () {
     cout << q.getFront() << " " << q.getRear() << " " << q.getSize() << endl;
     q.dequeue();
     cout << q.getFront() << " " << q.getRear() << " " << q.getSize() << endl;
+
+    // queue in c++ STL
+    // push for enqueue and pop for dequeue
+
+    queue <int> u;
+    u.push(5);
+    u.push(10);
+    u.push(15);
+    u.push(20);
+    cout << u.front() << " " << u.back() << endl;
+    u.pop();
+    cout << u.front() << " " << u.back() << endl;
+
+    while (!u.empty()) {
+        cout << u.front() << " ";
+        u.pop();
+    }
+    
 }
