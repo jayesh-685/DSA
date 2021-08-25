@@ -161,8 +161,41 @@ struct myQueue {
     }
 };
 
+// implement stack using queue
+
+struct myStack {
+    queue <int> q1, q2;
+
+    int top () {
+        return q1.front();
+    }
+
+    void push (int x) {
+        while (!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+        q1.push(x);
+        while (!q2.empty()) {
+            q1.push(q2.front());
+            q2.pop();
+        }
+    }
+
+    void pop () {
+        q1.pop();
+    }
+
+    int size () {
+        return q1.size();
+    }
+};
+// here we made the push function costly, to make the pop function costly instead, we can keep track of no of elements in stack then push only n-1 elements from q2
+
+
+
 int main () {
-    myQueue q;
+    /* myQueue q;
     cout << q.isEmpty() << endl;
     q.enqueue(5);
     q.enqueue(10);
@@ -188,9 +221,19 @@ int main () {
     while (!u.empty()) {
         cout << u.front() << " ";
         u.pop();
-    }
+    } */
     
     // queue is a container adapter
     // by default implemented using dequeue
     // all operations are O(1)
+
+    myStack q;
+
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    q.push(40);
+    cout << q.top() << endl;
+    q.pop();
+    cout << q.size() << endl;
 }
