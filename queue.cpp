@@ -279,6 +279,37 @@ struct myQueue {
     }
 };
 
+// iterative reverse
+/* void reverse (queue <int> &q) {
+    stack <int> s;
+    while (!q.empty()) {
+        s.push(q.front());
+        q.pop();
+    }
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+} */
+
+// recursive reverse
+void reverse (queue <int> &q) {
+    if (q.size() == 1)
+        return;
+    int temp = q.front();
+    q.pop();
+    reverse(q);
+    q.push(temp);
+}
+
+void traverse (queue <int> q) {
+    while (!q.empty()) {
+        cout << q.front() << " ";
+        q.pop();
+    }
+    cout << endl;
+}
+
 
 int main () {
     /* myQueue q;
@@ -323,12 +354,21 @@ int main () {
     q.pop();
     cout << q.size() << endl; */
 
-    myQueue q;
+    /* myQueue q;
     q.push(10);
     q.push(20);
     q.push(30);
     q.push(40);
     cout << q.getRear() << endl;
     q.pop();
-    cout << q.getRear() << endl;
+    cout << q.getRear() << endl; */
+
+    queue <int> q;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    q.push(40);
+    traverse(q);
+    reverse(q);
+    traverse(q);
 }
