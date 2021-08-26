@@ -97,7 +97,7 @@ using namespace std;
 
 // implementing queue using linked list
 
-struct Node {
+/* struct Node {
     int data;
     Node* next;
     Node (int x) {
@@ -159,16 +159,16 @@ struct myQueue {
     int getSize () {
         return size;
     }
-};
+}; */
 
 // implement stack using queue
 
-struct myStack {
+/* struct myStack {
     queue <int> q1, q2;
 
     int top () {
         return q1.front();
-    }
+    } 
 
     void push (int x) {
         while (!q1.empty()) {
@@ -189,9 +189,95 @@ struct myStack {
     int size () {
         return q1.size();
     }
-};
-// here we made the push function costly, to make the pop function costly instead, we can keep track of no of elements in stack then push only n-1 elements from q2
+}; */
+// here we made the push function costly, to make the pop function costly instead, we dequeue everything except the last element from q1 and enqueue to q2. then delete the last element from q1 and then swap names of q1 and q2
 
+/* void pop {
+    while (q1.size() != 1) {
+        q2.push(q1.front());
+        q1.pop();
+    }
+    q1.pop();
+    queue <int> temp = q1;
+    q1 = q2;
+    q2 = temp;
+} */
+
+// implement stack using 1 queue
+// we will just push at the back and then pop from the front
+/*
+void push (int x) {
+    int s = q.size();
+    q.push(x);
+
+    for (int i=0; i<s; i++) {
+        q.push(q.front());
+        q.pop();
+    }
+} */
+
+// queue using stack
+
+// struct myQueue {
+//     stack <int> s1;
+//     stack <int> s2;
+
+//     void enqueue (int x) {
+//         while (!s1.empty()) {
+//             s2.push(s1.top());
+//             s1.pop();
+//         }
+//         s1.push(x);
+//         while (!s2.empty()) {
+//             s1.push(s2.top());
+//             s2.pop();
+//         }
+//     }
+
+//     void dequeue () {
+//         s1.pop();
+//     }
+
+//     // if we want to make the dequeue operation costly instead
+
+//     /* void dequeue () {
+//         while (s1.size() != 1) {
+//             s2.push(s1.top());
+//             s1.pop();
+//         }
+//         s1.pop();
+//         while (!s2.empty()) {
+//             s1.push(s2.top());
+//             s2.pop();
+//         }
+//     } */
+
+// };
+
+// using one stack only:
+
+struct myQueue {
+    stack <int> s;
+
+    int getRear () {
+        return s.top();
+    }
+
+    void push (int x) {
+        s.push(x);
+    }
+
+    void pop () {
+        if (s.size() == 1) {
+            s.pop();
+            return;
+        }
+        int temp = s.top();
+        s.pop(); 
+        pop();
+        s.push(temp);
+    }
+};
 
 
 int main () {
@@ -227,7 +313,7 @@ int main () {
     // by default implemented using dequeue
     // all operations are O(1)
 
-    myStack q;
+    /* myStack q;
 
     q.push(10);
     q.push(20);
@@ -235,5 +321,14 @@ int main () {
     q.push(40);
     cout << q.top() << endl;
     q.pop();
-    cout << q.size() << endl;
+    cout << q.size() << endl; */
+
+    myQueue q;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    q.push(40);
+    cout << q.getRear() << endl;
+    q.pop();
+    cout << q.getRear() << endl;
 }
