@@ -41,11 +41,24 @@ int removeDuplicates (int arr[], int n) {
     return size;
 }
 
+void zeroToLast (int arr[], int n) {
+    // whenever you find a non zero element just swap it with the first zero index of which can be found by keeping track of no of non zero elements
+
+    int count = 0;
+    for (int i=0; i<n; i++) {
+        if (arr[i] != 0) {
+            swap(arr[i], arr[count]);
+            count++;
+        }
+    }
+}
+
 int main () {
-    int arr[] = {9, 9, 9, 8, 8};
+    int arr[] = {8, 5, 0, 10, 0, 20};
     //cout << secondLargest(arr, 5) << endl;
-    traverse(arr, 5);
+    traverse(arr, 6);
     //reverseArr(arr, 5);
-    int n = removeDuplicates(arr, 5);
-    traverse(arr, n);
+    //int n = removeDuplicates(arr, 5);
+    zeroToLast(arr, 6);
+    traverse(arr, 6);
 }
