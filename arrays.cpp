@@ -31,18 +31,14 @@ void reverseArr (int arr[], int n) {
 }
 
 int removeDuplicates (int arr[], int n) {
-    int i=0;
-    while (i < n-1) {
-        if (arr[i] == arr[i+1]) {
-            for (int j=i+1; j<n-1; j++) {
-                arr[j] = arr[j+1];
-            }
-            n--;
-        } else {
-            i++;
+    int size = 1;
+    for (int i=1; i<n; i++) {
+        if (arr[i] != arr[size-1]) {
+            arr[size] = arr[i];
+            size++;
         }
     }
-    return n;
+    return size;
 }
 
 int main () {
