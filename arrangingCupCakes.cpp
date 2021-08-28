@@ -11,7 +11,7 @@ int main() {
         cin >> n;
         int minDiff = INT_MAX;
 
-        for (int i=1; i<=n/2; i++) {
+        for (int i=1; i*i<=n; i++) {
             if (n%i == 0) {
                 minDiff = min(minDiff, abs(n/i - i));
             }
