@@ -53,12 +53,19 @@ void zeroToLast (int arr[], int n) {
     }
 }
 
+void leftRotate (int arr[], int n) {
+    int temp = arr[0];
+    for (int i=1; i<n; i++)
+        arr[i-1] = arr[i];
+    arr[n-1] = temp;
+}
+
 int main () {
     int arr[] = {8, 5, 0, 10, 0, 20};
     //cout << secondLargest(arr, 5) << endl;
     traverse(arr, 6);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
-    zeroToLast(arr, 6);
+    leftRotate(arr, 6);
     traverse(arr, 6);
 }
