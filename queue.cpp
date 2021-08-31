@@ -369,6 +369,6 @@ int main () {
     q.push(30);
     q.push(40);
     traverse(q);
-    reverse(q);
+    //reverse(q);
     traverse(q);
 }

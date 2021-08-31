@@ -60,12 +60,30 @@ void leftRotate (int arr[], int n) {
     arr[n-1] = temp;
 }
 
+// left rotate by d
+// Theta(nd) solution is to simply call the left rotate by 1 function d times
+
+// solution with time complexity theta(n) but uses theta(d) extra space
+
+void leftRotateD (int arr[], int n, int d) {
+    int tempArr [d];
+
+    for (int i=0; i<d; i++)
+        tempArr[i] = arr[i];
+    
+    for (int i=d; i<n; i++)
+        arr[i-d] = arr[i];
+
+    for (int i=n-d; i<n; i++)
+        arr[i] = tempArr[i-n+d];
+}
+
 int main () {
     int arr[] = {8, 5, 0, 10, 0, 20};
     //cout << secondLargest(arr, 5) << endl;
     traverse(arr, 6);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
-    leftRotate(arr, 6);
+    leftRotateD(arr, 6, 2);
     traverse(arr, 6);
 }

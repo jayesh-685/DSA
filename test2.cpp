@@ -39,3 +39,31 @@ int main() {
 	}
 	return 0;
 }
+class Solution{
+  public:
+  
+    //Function to find starting point where the truck can start to get through
+    //the complete circle without exhausting its petrol in between.
+    int tour(petrolPump p[],int n)
+    {
+       //Your code here
+       for (int i=0; i<n; i++) {
+           bool completed = true;
+           int remainingPetrol = 0;
+           int remainingDist = 0;
+           for (int j=0; j<n; j++) {
+               remainingPetrol += petrolPump[(n+i+j)%n].petrol;
+               remainingDist = petrolPump[(n+i+j)%n].distance;
+               if (remainingPetrol < remainingDistance) {
+                   completed = false;
+                   break;
+               }
+               remainingPetrol -= remainingDist;
+               remainingDist = 0;
+           }
+           if (completed)
+               return i;
+       }
+       return -1;
+    }
+};
