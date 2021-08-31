@@ -65,7 +65,7 @@ void leftRotate (int arr[], int n) {
 
 // solution with time complexity theta(n) but uses theta(d) extra space
 
-void leftRotateD (int arr[], int n, int d) {
+/* void leftRotateD (int arr[], int n, int d) {
     int tempArr [d];
 
     for (int i=0; i<d; i++)
@@ -76,14 +76,23 @@ void leftRotateD (int arr[], int n, int d) {
 
     for (int i=n-d; i<n; i++)
         arr[i] = tempArr[i-n+d];
+} */
+
+// uses O(1) extra space
+
+void leftRotateD (int arr[], int n, int d) {
+    // reverse the first d elements, then the remaining d and then the complete array
+    reverseArr(arr, d);
+    reverseArr(arr+d, n-d);
+    reverseArr(arr, n);
 }
 
 int main () {
-    int arr[] = {8, 5, 0, 10, 0, 20};
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
     //cout << secondLargest(arr, 5) << endl;
-    traverse(arr, 6);
+    traverse(arr, 8);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
-    leftRotateD(arr, 6, 2);
-    traverse(arr, 6);
+    leftRotateD(arr, 8, 3);
+    traverse(arr, 8); 
 }
