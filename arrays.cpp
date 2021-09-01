@@ -102,15 +102,29 @@ void leaderInArray (int arr[], int n) {
     reverse(vec.begin(), vec.end());
     for (int v : vec)
         cout << v << " ";
-}
+} // Theta(n)
+
+int maxDiff (int arr[], int n) {
+    // max value of arr[j] - arr[i] such that j > i
+
+    int ans = INT_MIN;
+    int currMax = arr[n-1];
+
+    for (int i=n-2; i>=0; i--) {
+        ans = max(ans, currMax-arr[i]);
+        currMax = max(currMax, arr[i]);
+    }
+
+    return ans;
+}  // Theta(n)
 
 int main () {
-    int arr[] = {5, 9, 6, 8, 4, 1, 8, 2};
+    int arr[] = {8, 7, 6, 5, 4, 3, 2, 1};
     //cout << secondLargest(arr, 5) << endl;
     traverse(arr, 8);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
     //leftRotateD(arr, 8, 3);
     //traverse(arr, 8); 
-    leaderInArray(arr, 8);
+    cout << maxDiff(arr, 8) << endl;
 }
