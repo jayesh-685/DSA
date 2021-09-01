@@ -119,23 +119,23 @@ int maxDiff (int arr[], int n) {
 }  // Theta(n)
 
 void freqOfElements (int arr[], int n) {
-    // print frequence of each element in an sorted array
-    int freqArr [n];
-    for (int i=0; i<n; i++)
-        freqArr[i] = 1;
-    int j = 0;
+    // print frequence of each element in an sorted array along with the element
+    int freq = 1;
+    int i = 0;
 
-    for (int i=1; i<n; i++) {
-        if (arr[i] == arr[i-1])
-            freqArr[j]++;
-        else 
-            j++;
+    while (i < n) {
+        freq = 1;
+        while (i < n && arr[i] == arr[i+1]) {
+            freq++;
+            i++;
+        }
+        cout << arr[i] << " " << freq << endl;
+        i++;
     }
-    traverse(freqArr, j+1);
 }
 
 int main () {
-    int arr[] = {5, 5, 5, 8, 8, 99, 99, 100};
+    int arr[] = {5, 6, 7, 8, 9, 99, 100, 101};
     //cout << secondLargest(arr, 5) << endl;
     traverse(arr, 8);
     //reverseArr(arr, 5);
