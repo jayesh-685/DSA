@@ -87,12 +87,30 @@ void leftRotateD (int arr[], int n, int d) {
     reverseArr(arr, n);
 }
 
+void leaderInArray (int arr[], int n) {
+    // if there is no greater element to the right of an element then it is a leader in the array
+    vector <int> vec;
+    int currLeader = arr[n-1];
+    vec.push_back(arr[n-1]);
+
+    for (int i=n-2; i>=0; i--) {
+        if (arr[i] > currLeader) {
+            vec.push_back(arr[i]);
+            currLeader = arr[i];
+        }
+    }
+    reverse(vec.begin(), vec.end());
+    for (int v : vec)
+        cout << v << " ";
+}
+
 int main () {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int arr[] = {5, 9, 6, 8, 4, 1, 8, 2};
     //cout << secondLargest(arr, 5) << endl;
     traverse(arr, 8);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
-    leftRotateD(arr, 8, 3);
-    traverse(arr, 8); 
+    //leftRotateD(arr, 8, 3);
+    //traverse(arr, 8); 
+    leaderInArray(arr, 8);
 }
