@@ -25,7 +25,7 @@ int secondLargest (int arr[], int n) {
 void reverseArr (int arr[], int n) {
     for (int i=0; i<n/2; i++) {
         int temp = arr[i];
-        arr[i] = arr[n-i-1];
+        arr[i] = arr[n-i-1]; 
         arr[n-i-1] = temp;
     }
 }
@@ -134,14 +134,34 @@ void freqOfElements (int arr[], int n) {
     }
 }
 
+int stockBuySell1 (int arr[], int n) {
+    int balance = 0;
+    int i=0;
+
+    while (i<n) {
+        while (i<n-1 && arr[i] > arr[i+1]) 
+            i++;
+        balance -= arr[i];
+        i++;
+        while (i<n-1 && arr[i] < arr[i+1])
+            i++;
+        balance += arr[i];
+        i++;
+    }
+
+    return balance;
+}
+
 int main () {
-    int arr[] = {5, 6, 7, 8, 9, 99, 100, 101};
+    int arr[] = {30, 20, 10};
     //cout << secondLargest(arr, 5) << endl;
-    traverse(arr, 8);
+    int n = (sizeof(arr)/sizeof(arr[0]));
+    cout << n << endl;
+    traverse(arr, n);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
     //leftRotateD(arr, 8, 3);
     //traverse(arr, 8); 
     //cout << maxDiff(arr, 8) << endl;
-    freqOfElements(arr, 8);
+    cout << stockBuySell1(arr, n) << endl;
 }
