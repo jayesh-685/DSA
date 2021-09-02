@@ -134,32 +134,18 @@ void freqOfElements (int arr[], int n) {
     }
 }
 
-int stockBuySell1 (int arr[], int n) {
-    int balance = 0;
-    int i=0;
+int stockBuySell (int arr[], int n) {
+    int profit = 0;
 
-    while (i<n) {
-        while (i<n-1 && arr[i] > arr[i+1]) 
-            i++;
-        balance -= arr[i];
-        i++;
-        if (i == n)
-            break;
-        while (i<n-1 && arr[i] < arr[i+1])
-            i++;
-        balance += arr[i];
-        i++;
-        if (i == n)
-            break;
-    }
-
-    if (balance < 0)
-        balance = 0;
-    return balance;
+    for (int i=1; i<n; i++) 
+        if (arr[i] > arr[i-1])
+            profit += arr[i]-arr[i-1];
+    
+    return profit;
 }
 
 int main () {
-    int arr[] = {1, 5, 3, 1, 2, 8};
+    int arr[] = {10, 20, 30, 50};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     cout << n << endl;
@@ -169,5 +155,5 @@ int main () {
     //leftRotateD(arr, 8, 3);
     //traverse(arr, 8); 
     //cout << maxDiff(arr, 8) << endl;
-    cout << stockBuySell1(arr, n) << endl;
+    cout << stockBuySell(arr, n) << endl;
 }
