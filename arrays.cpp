@@ -143,17 +143,23 @@ int stockBuySell1 (int arr[], int n) {
             i++;
         balance -= arr[i];
         i++;
+        if (i == n)
+            break;
         while (i<n-1 && arr[i] < arr[i+1])
             i++;
         balance += arr[i];
         i++;
+        if (i == n)
+            break;
     }
 
+    if (balance < 0)
+        balance = 0;
     return balance;
 }
 
 int main () {
-    int arr[] = {30, 20, 10};
+    int arr[] = {1, 5, 3, 1, 2, 8};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     cout << n << endl;
