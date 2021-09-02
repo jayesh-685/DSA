@@ -134,6 +134,7 @@ void freqOfElements (int arr[], int n) {
     }
 }
 
+// if you know the price of stock on each day how will you buy and sell to get max profit
 int stockBuySell (int arr[], int n) {
     int profit = 0;
 
@@ -144,8 +145,23 @@ int stockBuySell (int arr[], int n) {
     return profit;
 }
 
+// max consecutive 1s in a boolean array
+int maxCons1s (int arr[], int n) {
+    int count = 0;
+    int maxCount = 0;
+    for (int i=0; i<n; i++) {
+        if (arr[i] == 0)
+            count = 0;
+        else {
+            count++;
+            maxCount = max(maxCount, count);
+        }
+    }
+    return maxCount;
+}
+
 int main () {
-    int arr[] = {10, 20, 30, 50};
+    int arr[] = {1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     cout << n << endl;
@@ -155,5 +171,6 @@ int main () {
     //leftRotateD(arr, 8, 3);
     //traverse(arr, 8); 
     //cout << maxDiff(arr, 8) << endl;
-    cout << stockBuySell(arr, n) << endl;
+    //cout << stockBuySell(arr, n) << endl;
+    cout << maxCons1s(arr, n) << endl;
 }
