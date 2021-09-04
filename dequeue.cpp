@@ -87,3 +87,14 @@ struct myDequeue {
         return size;
     }
 };
+
+int main () {
+    /* myDequeue dq (10);
+    cout << dq.isEmpty() << " " << dq.isFull() << endl;
+    dq.insertFront(5);
+    dq.insertFront(10);
+    dq.insertEnd(50);
+    dq.insertEnd(40);
+    cout << dq.getFront() << " " << dq.getRear() << " " << dq.getSize() << endl;
+    cout << dq.isEmpty() << " " << dq.isFull() << endl; */
+}
