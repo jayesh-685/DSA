@@ -97,4 +97,21 @@ int main () {
     dq.insertEnd(40);
     cout << dq.getFront() << " " << dq.getRear() << " " << dq.getSize() << endl;
     cout << dq.isEmpty() << " " << dq.isFull() << endl; */
+
+    // dq in cpp stl
+    // provides random access and arbitrary insertion, may not be provided in other languages
+    // insert and remove operations are O(n) rest are O(1) so the stl implementation is very tricky
+    
+    deque <int> dq = {1, 2, 3, 4, 5};
+    dq.push_back(6);
+    for (int x : dq)
+        cout << x << " ";
+    cout << endl;
+    // have iterators like begin, cbegin, reverse iterators
+    auto it = dq.begin();
+    it++;
+    dq.insert(it, 3);   // will insert 3 before it that is before 2
+    for (int x : dq)
+        cout << x << " ";
+    cout << endl;
 }
