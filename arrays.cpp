@@ -173,5 +173,4 @@ int main () {
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
     cout << maxCons1s(arr, n) << endl;
-    cout << "Hello world!";
 }
