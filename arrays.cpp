@@ -160,11 +160,24 @@ int maxCons1s (int arr[], int n) {
     return maxCount;
 }
 
+int maxSumSubArr (int arr[], int n) {
+    int currSum = 0, maxSum = INT_MIN;
+
+    for (int i=0; i<n; i++) {
+        currSum = 0;
+        for (int j=i; j<n; j++) {
+            currSum += arr[j];
+            maxSum = max(maxSum, currSum);
+        }
+    }
+
+    return maxSum;
+}
+
 int main () {
-    int arr[] = {1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1};
+    int arr[] = {1, -1, 2, 3, -1, 2};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
-    cout << n << endl;
     traverse(arr, n);
     //reverseArr(arr, 5);
     //int n = removeDuplicates(arr, 5);
@@ -172,5 +185,6 @@ int main () {
     //traverse(arr, 8); 
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
-    cout << maxCons1s(arr, n) << endl;
+    //cout << maxCons1s(arr, n) << endl;
+    cout << maxSumSubArr(arr, n);
 }
