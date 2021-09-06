@@ -160,7 +160,8 @@ int maxCons1s (int arr[], int n) {
     return maxCount;
 }
 
-int maxSumSubArr (int arr[], int n) {
+// O(n^2)
+int maxSumSubArr1 (int arr[], int n) {
     int currSum = 0, maxSum = INT_MIN;
 
     for (int i=0; i<n; i++) {
@@ -169,6 +170,42 @@ int maxSumSubArr (int arr[], int n) {
             currSum += arr[j];
             maxSum = max(maxSum, currSum);
         }
+    }
+
+    return maxSum;
+}
+
+int maxSumSubArr2 (int arr[], int n) {
+    int sumArr [n+1];
+    sumArr[0] = 0;
+    for (int i=1; i<=n; i++)
+        sumArr[i] = sumArr[i-1] + arr[i-1];
+
+    int currSum = 0;
+    int maxSum = INT_MIN;
+
+    for (int i=0; i<n; i++) {
+        currSum = 0;
+        for (int j=i; j<n; j++) {
+            currSum = sumArr[j+1] - sumArr[i];
+            maxSum = max(maxSum, currSum);
+        }
+    }
+
+    return maxSum;
+}
+
+// kadane's algorithm
+// for each element we find the max sum of all sub arrays which end with that element 
+// which is essentially the max of arr[i]+lastMaxSum and arr[i]
+
+int maxSumSubArr3 (int arr[], int n) {
+    int lastMaxSum = arr[0];
+    int maxSum = INT_MIN;
+
+    for (int i=1; i<n; i++) {
+        lastMaxSum = max(arr[i], lastMaxSum+arr[i]);
+        maxSum = max(maxSum, lastMaxSum);
     }
 
     return maxSum;
@@ -186,5 +223,5 @@ int main () {
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
     //cout << maxCons1s(arr, n) << endl;
-    cout << maxSumSubArr(arr, n);
+    cout << maxSumSubArr3(arr, n) << endl;
 }
