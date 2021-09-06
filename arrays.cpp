@@ -226,8 +226,52 @@ int evenOddSubArr (int arr[], int n) {
     return maxCount;
 }
 
+// find the majority element, if any, in the array
+// majority element is the one which occurs more than n/2 times
+// one approach is to sort the array and then traverse it maintaining max count
+// O(nlogn) because of sorting algorithm
+
+// other way is Using Moore’s Voting Algorithm
+// if a majority element does exist (say x) then for n x we have n non x which cancel each other and we are left with 1 x proving it is the majority element
+// Algorithm: 
+// Loop through each element and maintains a count of majority element, and a majority index, maj_index
+// If the next element is same then increment the count if the next element is not same then decrement the count.
+// if the count reaches 0 then changes the maj_index to the current element and set the count again to 1.
+// Now again traverse through the array and find the count of majority element found.
+// If the count is greater than half the size of the array, print the element
+// Else print that there is no majority element
+
+int majorityElement (int arr[], int n) {
+    int count = 1;
+    int res = 0;
+
+    for (int i=1; i<n; i++) {
+        if (arr[i] == arr[res])
+            count++;
+        else
+            count--;
+
+        if (count == 0) {
+            count = 1;
+            res = i;
+        }
+    }
+
+    // this part is optional if know that given array has a majority element
+
+    count = 0;
+    for (int i=0; i<n; i++) {
+        if (arr[i] == arr[res])
+            count++;
+    }
+    if (count <= n/2)
+        return -1;
+    return res;
+    // this algorithm may not return the first occurance of the majority element
+}
+
 int main () {
-    int arr[] = {1, 3, 4, 5, 7, 9, 10};
+    int arr[] = {1, 2, 1, 3, 1, 5};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     traverse(arr, n);
@@ -238,5 +282,5 @@ int main () {
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
     //cout << maxCons1s(arr, n) << endl;
-    cout << evenOddSubArr(arr, n) << endl;
+    cout << majorityElement(arr, n) << endl;
 }
