@@ -211,8 +211,23 @@ int maxSumSubArr3 (int arr[], int n) {
     return maxSum;
 }
 
+int evenOddSubArr (int arr[], int n) {
+    int count = 1, maxCount = 0;
+    int i=0;
+    while (i < n-1) {
+        while (i<n-1 && abs(arr[i+1]%2) - abs(arr[i]%2)) {
+            count++;
+            i++;
+        }
+        maxCount = max(maxCount, count);
+        count = 1;
+        i++;
+    }
+    return maxCount;
+}
+
 int main () {
-    int arr[] = {1, -1, 2, 3, -1, 2};
+    int arr[] = {1, 3, 4, 5, 7, 9, 10};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     traverse(arr, n);
@@ -223,5 +238,5 @@ int main () {
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
     //cout << maxCons1s(arr, n) << endl;
-    cout << maxSumSubArr3(arr, n) << endl;
+    cout << evenOddSubArr(arr, n) << endl;
 }
