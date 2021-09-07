@@ -257,7 +257,7 @@ int majorityElement (int arr[], int n) {
         }
     }
 
-    // this part is optional if know that given array has a majority element
+    // this part is not required if know that given array has a majority element
 
     count = 0;
     for (int i=0; i<n; i++) {
@@ -310,8 +310,49 @@ void minimumFlips (int arr[], int n) {
         cout << n-1;
 }
 
+// find max sum of k consecutive elements
+
+// sliding window technique
+int maxOfKElements (int arr[], int n, int k) {
+    int currSum = 0;
+    for (int i=0; i<k; i++)
+        currSum += arr[i];
+    int maxSum = currSum; 
+
+    for (int i=k; i<n; i++) {
+        currSum += (arr[i] - arr[i-k]);
+        maxSum = max(maxSum, currSum);
+    }
+
+    return maxSum;
+}
+
+// given a array of NON NEGATIVE INTEGERS, find if there is a sub array with given sum
+bool subArrWithGivenSum (int arr[], int n, int sum) {
+    int start = 0, end = 0;
+    int currSum = 0;
+    while (end < n) {
+        while (end<n && currSum<sum) {
+            currSum += arr[end++];
+        }
+        if (currSum == sum) {
+            cout << start << " " << end-1 << endl;
+            return true;
+        }
+        while (start<end && currSum>sum) {
+            currSum -= arr[start++];
+        }
+        if (currSum == sum) {
+            cout << start << " " << end-1 << endl;
+            return true;
+        }
+    }
+    cout << -1 << " " << -1 << endl;
+    return false;
+}
+
 int main () {
-    int arr[] = {1, 1, 0, 0, 0, 1};
+    int arr[] = {1, 4, 0, 0, 3, 10, 5};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     traverse(arr, n);
@@ -323,5 +364,6 @@ int main () {
     //cout << stockBuySell(arr, n) << endl;
     //cout << maxCons1s(arr, n) << endl;
     //cout << majorityElement(arr, n) << endl;
-    minimumFlips(arr, n);
+    //minimumFlips(arr, n);
+    cout << subArrWithGivenSum(arr, n, 15) << endl;
 }
