@@ -270,8 +270,48 @@ int majorityElement (int arr[], int n) {
     // this algorithm may not return the first occurance of the majority element
 }
 
+void minimumFlips (int arr[], int n) {
+    // given a binary array, write the index of elements which need to be flipped so that the array becomes same and no of flips is minimum
+
+    // so the binary array will have elements in groups of 0s and 1s, we just have to find out which group occurs less times
+    // if you THINK then the diff in frequency of groups is either 0 or 1
+    // also the 2nd group always occurs either 1 less time or equal no of times so we we have to always flip the second group
+
+    /* int flip;
+    if (arr[0] == 0)
+        flip = 1;
+    else
+        flip = 0;
+
+    int i=0, j=0;
+    while (i<n && j<n) {
+        if (arr[i] == flip) {
+            j=i;
+            while (j<n && arr[j] == flip)
+                j++;
+            cout << "flip " << i << " to " << j-1 << endl;
+            i = j;
+        } else {
+            i++;
+        }
+    } */
+
+    // can also do this way, we print only when there is change and compare it with the first element
+
+    for (int i=1; i<n; i++) {
+        if (arr[i-1] != arr[i]) {
+            if (arr[i] != arr[0])
+                cout << "flip " << i << " to ";
+            else
+                cout << i-1 << endl;
+        }
+    }
+    if (arr[n-1] != arr[0])
+        cout << n-1;
+}
+
 int main () {
-    int arr[] = {1, 2, 1, 3, 1, 5};
+    int arr[] = {1, 1, 0, 0, 0, 1};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     traverse(arr, n);
@@ -282,5 +322,6 @@ int main () {
     //cout << maxDiff(arr, 8) << endl;
     //cout << stockBuySell(arr, n) << endl;
     //cout << maxCons1s(arr, n) << endl;
-    cout << majorityElement(arr, n) << endl;
+    //cout << majorityElement(arr, n) << endl;
+    minimumFlips(arr, n);
 }
