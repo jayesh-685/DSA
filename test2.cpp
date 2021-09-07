@@ -1,9 +1,27 @@
 #include "bits/stdc++.h"
 using namespace std;
 
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        int maxCandies = candies[0];
+        for (int i=1; i<candies.size(); i++) 
+            maxCandies = max(maxCandies, candies[i]);
+        
+        vector <bool> ans;
+        for (int i=0; i<candies.size(); i++) 
+            if (candies[i]+extraCandies >= maxCandies)
+                ans.push_back(true);
+
+        return ans;
+    }
+
+};
+
 int main() {
+
 	// your code goes here
-	int Q;
+	/* int Q;
 	cin >> Q;
 	while (Q--) {
 	    int N;
@@ -36,10 +54,11 @@ int main() {
         }
 
         cout << count << endl;
-	}
+	} */
 	return 0;
 }
-class Solution{
+
+/* class Solution{
   public:
   
     //Function to find starting point where the truck can start to get through
@@ -66,4 +85,4 @@ class Solution{
        }
        return -1;
     }
-};
+}; */
