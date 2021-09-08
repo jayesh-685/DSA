@@ -351,6 +351,29 @@ bool subArrWithGivenSum (int arr[], int n, int sum) {
     return false;
 }
 
+// print first m 'nBonacci' numbers
+void nBonacciNumbers (int n, int m) {
+    
+}
+
+// prefix sum
+// given a array return sum from ith element to jth element in O(1)
+// just create a sum array that stores sum till ith element
+int getSum (int sumArr[], int i, int j) {
+    if (i == 0)
+        return sumArr[j];
+    return sumArr[j] - sumArr[i-1];
+}
+
+int* creatSumArr (int arr[], int n) {
+    int* sumArr = (int*)malloc(n * sizeof(int));
+    sumArr[0] = arr[0];
+    for (int i=1; i<n; i++)
+        sumArr[i] = sumArr[i-1] + arr[i];
+
+    return sumArr;
+}
+
 int main () {
     int arr[] = {1, 4, 0, 0, 3, 10, 5};
     //cout << secondLargest(arr, 5) << endl;
@@ -365,5 +388,8 @@ int main () {
     //cout << maxCons1s(arr, n) << endl;
     //cout << majorityElement(arr, n) << endl;
     //minimumFlips(arr, n);
-    cout << subArrWithGivenSum(arr, n, 15) << endl;
+    //cout << subArrWithGivenSum(arr, n, 15) << endl;
+    int* sumArray = creatSumArr(arr, n);
+    traverse(sumArray, n);
+    cout << getSum(sumArray, 2, 4) << endl;
 }
