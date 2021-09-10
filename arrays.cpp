@@ -428,5 +428,5 @@ int main () {
     //cout << equillibriumPoint(arr, n) << endl;
     int leftArr[] = {1, 2, 3};
     int rightArr[] = {3, 5, 7};
-    cout << maxRepeatingElement(leftArr, rightArr, 3, 7);
+    cout << maxRepeatingElement(leftArr, rightArr, 3, 7) << endl;
 }
