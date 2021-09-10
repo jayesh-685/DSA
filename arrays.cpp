@@ -376,16 +376,39 @@ int* creatSumArr (int arr[], int n) {
 
 // check if in given array an equillibrium point exists - point such that sum of elements before it = sum of elements after it
 int equillibriumPoint (int arr[], int n) {
-    int sumArr [n+2];
-    sumArr[0] = sumArr[n+1] = 0;
-    for (int i=1; i<=n; i++) {
-        sumArr[i] = sumArr[i-1] + arr[i-1];
+    int leftSum=0, rightSum=0;
+    for (int i=0; i<n; i++)
+        rightSum += arr[i];
+    for (int i=0; i<n; i++) {
+        rightSum -= arr[i];
+        if (leftSum == rightSum)
+            return i;
+        leftSum += arr[i];
     }
+    return -1;
+}
 
-    
+// given n ranges find max repeating element
+int maxRepeatingElement (int leftArr[], int rightArr[], int n, int maxx) {
+    // maxx is the max element in rightArr
+    int freqArr [maxx+1] = {0};
+    for (int i=0; i<n; i++) {
+        freqArr[leftArr[i]]++;
+        freqArr[rightArr[i] + 1]--;
+    }
+    int maxFreq = freqArr[0];
+    int index;
+    for (int i=1; i<=maxx; i++) {
+        freqArr[i] += freqArr[i-1];
+        if (freqArr[i] > maxFreq) {
+            maxFreq = freqArr[i];
+            index = i;
+        }
+    }
+    return index;
 }
 int main () {
-    int arr[] = {1, 4, 0, 0, 3, 10, 5};
+    int arr[] = {4, -2, 2};
     //cout << secondLargest(arr, 5) << endl;
     int n = (sizeof(arr)/sizeof(arr[0]));
     traverse(arr, n);
@@ -399,7 +422,11 @@ int main () {
     //cout << majorityElement(arr, n) << endl;
     //minimumFlips(arr, n);
     //cout << subArrWithGivenSum(arr, n, 15) << endl;
-    int* sumArray = creatSumArr(arr, n);
-    traverse(sumArray, n);
-    cout << getSum(sumArray, 2, 4) << endl;
+    // int* sumArray = creatSumArr(arr, n);
+    // traverse(sumArray, n);
+    // cout << getSum(sumArray, 2, 4) << endl;
+    //cout << equillibriumPoint(arr, n) << endl;
+    int leftArr[] = {1, 2, 3};
+    int rightArr[] = {3, 5, 7};
+    cout << maxRepeatingElement(leftArr, rightArr, 3, 7);
 }
