@@ -374,6 +374,16 @@ int* creatSumArr (int arr[], int n) {
     return sumArr;
 }
 
+// check if in given array an equillibrium point exists - point such that sum of elements before it = sum of elements after it
+int equillibriumPoint (int arr[], int n) {
+    int sumArr [n+2];
+    sumArr[0] = sumArr[n+1] = 0;
+    for (int i=1; i<=n; i++) {
+        sumArr[i] = sumArr[i-1] + arr[i-1];
+    }
+
+    
+}
 int main () {
     int arr[] = {1, 4, 0, 0, 3, 10, 5};
     //cout << secondLargest(arr, 5) << endl;
