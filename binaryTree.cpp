@@ -28,9 +28,32 @@ struct Node {
 
 // tree traversal
 
+/*
+Following are the generally used ways for traversing trees:
+
+Inorder (Left, Root, Right)  
+Preorder (Root, Left, Right)
+Postorder (Left, Right, Root)
+
+*/  
+
+void inorderTraverse (Node* root) {
+    if (root->left == NULL && root->right == NULL) {
+        cout << root->key << " ";
+        return;
+    }
+    inorderTraverse(root->left);
+    cout << root->key << " ";
+    inorderTraverse(root->right);
+}
+
 int main () {
     Node* root = new Node (10);
     root->left = new Node (5);
     root->right = new Node (20);
     root->left->left = new Node (2);
+    root->left->right = new Node (7);
+    inorderTraverse(root);
+    /* if (root->left == NULL && root->right == NULL)
+        cout << root->key << " "; */
 }
