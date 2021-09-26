@@ -38,14 +38,29 @@ Postorder (Left, Right, Root)
 */  
 
 void inorderTraverse (Node* root) {
-    if (root->left == NULL && root->right == NULL) {
-        cout << root->key << " ";
+    if (root == NULL) 
         return;
-    }
     inorderTraverse(root->left);
     cout << root->key << " ";
-    inorderTraverse(root->right);
+    inorderTraverse(root->right);   
 }
+
+void preorderTraverse (Node* root) {
+    if (root == NULL) 
+        return;
+    cout << root->key << " ";
+    preorderTraverse(root->left);
+    preorderTraverse(root->right);   
+}
+
+void postorderTraverse (Node* root) {
+    if (root == NULL) 
+        return;
+    postorderTraverse(root->left);
+    postorderTraverse(root->right); 
+    cout << root->key << " ";
+}
+
 
 int main () {
     Node* root = new Node (10);
@@ -53,7 +68,5 @@ int main () {
     root->right = new Node (20);
     root->left->left = new Node (2);
     root->left->right = new Node (7);
-    inorderTraverse(root);
-    /* if (root->left == NULL && root->right == NULL)
-        cout << root->key << " "; */
+    postorderTraverse(root);
 }
