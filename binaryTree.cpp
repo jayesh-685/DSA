@@ -61,6 +61,15 @@ void postorderTraverse (Node* root) {
     cout << root->key << " ";
 }
 
+// calculate height of binary tree
+// call function for left part, then for right part find max of them and return adding one to them
+int getHeight (Node* root) {
+    if (root == NULL)
+        return 0;
+    else
+        return max(getHeight(root->left), getHeight(root->right)) + 1;
+}
+// h+1 function calls so aux space required is O(h)
 
 int main () {
     Node* root = new Node (10);
@@ -68,5 +77,7 @@ int main () {
     root->right = new Node (20);
     root->left->left = new Node (2);
     root->left->right = new Node (7);
-    postorderTraverse(root);
+    root->left->left->left = new Node (1);
+    //postorderTraverse(root);
+    cout << getHeight(root) << endl;
 }
