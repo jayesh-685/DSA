@@ -93,17 +93,26 @@ void printNodesK (Node* root, int k) {
 
 // optimised way is too use a queue. Push the root, them pop and print it and then push its child nodes (if they exists) and continue it till the queue becomes empty;
 
+// time complexity is theta(n) because we enqueue and dequeue each node exactly once and it takes theta(1) for both these operations
+// auxillary space: in queue we will have at most one level at a time so auxillary space required is theta(w) where w is width of binary tree 
+
 void levelOrderTraversal (Node* root) {
     if (root == NULL)
         return;
 
     queue <Node*> q;
     q.push(root);
+    q.push(NULL);
 
-    while (!q.empty()) {
+    while (q.size() > 1) {
         Node* curr = q.front();
-        cout << curr->key << " ";
         q.pop();
+        if (curr == NULL) {
+            cout << endl;
+            q.push(NULL);
+            continue;
+        }
+        cout << curr->key << " ";
         if (curr->left != NULL)
             q.push(curr->left);
         if (curr->right != NULL)
@@ -111,8 +120,37 @@ void levelOrderTraversal (Node* root) {
     }
     cout << endl;
 }
-// time complexity is theta(n) because we enqueue and dequeue each node exactly once and it takes theta(1) for both these operations
-// auxillary space: in queue we will have at most one level at a time so auxillary space required is theta(w) where w is width of binary tree 
+
+/* void levelOrderTraversal (Node* root) {
+    if (root == NULL)
+        return;
+
+    queue <Node*> q;
+    q.push(root);
+    int count = 1, nextCount = 0;   // using them to print a newline when a level is printed
+
+    while (!q.empty()) {
+        Node* curr = q.front();
+        cout << curr->key << " ";
+        q.pop();
+        count--;
+        if (curr->left != NULL) {
+            q.push(curr->left);
+            nextCount++;
+        }
+        if (curr->right != NULL) {
+            q.push(curr->right);
+            nextCount++;
+        }
+        if (count == 0) {
+            cout << endl;
+            count = nextCount;
+            nextCount = 0;
+        }
+    }
+    cout << endl;
+}
+*/
 
 int main () {
     Node* root = new Node (10);
