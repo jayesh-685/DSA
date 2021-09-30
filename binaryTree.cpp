@@ -86,6 +86,34 @@ void printNodesK (Node* root, int k) {
 }
 // time complexity is O(n) and aux space required is O(h) where h is height of tree
 
+// level order traversal
+// print nodes in horizontal fashion like first print all nodes at level 1 (left to right) then move to level 2 and so on
+
+// one way is to first calculate height of binary tree and then call print nodes at k dist funcion for each time... O(hn)
+
+// optimised way is too use a queue. Push the root, them pop and print it and then push its child nodes (if they exists) and continue it till the queue becomes empty;
+
+void levelOrderTraversal (Node* root) {
+    if (root == NULL)
+        return;
+
+    queue <Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        Node* curr = q.front();
+        cout << curr->key << " ";
+        q.pop();
+        if (curr->left != NULL)
+            q.push(curr->left);
+        if (curr->right != NULL)
+            q.push(curr->right);
+    }
+    cout << endl;
+}
+// time complexity is theta(n) because we enqueue and dequeue each node exactly once and it takes theta(1) for both these operations
+// auxillary space: in queue we will have at most one level at a time so auxillary space required is theta(w) where w is width of binary tree 
+
 int main () {
     Node* root = new Node (10);
     root->left = new Node (5);
@@ -97,6 +125,7 @@ int main () {
     root->left->left->left = new Node (1);
     //postorderTraverse(root);
     //cout << getHeight(root) << endl;
-    printNodesK(root, 2);
-    cout << endl;
+    // printNodesK(root, 2);
+    // cout << endl;
+    levelOrderTraversal(root);
 }
