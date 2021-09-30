@@ -84,6 +84,7 @@ void printNodesK (Node* root, int k) {
         printNodesK(root->right, k-1);
     }
 }
+// time complexity is O(n) and aux space required is O(h) where h is height of tree
 
 int main () {
     Node* root = new Node (10);
@@ -97,4 +98,5 @@ int main () {
     //postorderTraverse(root);
     //cout << getHeight(root) << endl;
     printNodesK(root, 2);
+    cout << endl;
 }
