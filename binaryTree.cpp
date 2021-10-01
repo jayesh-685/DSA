@@ -96,6 +96,28 @@ void printNodesK (Node* root, int k) {
 // time complexity is theta(n) because we enqueue and dequeue each node exactly once and it takes theta(1) for both these operations
 // auxillary space: in queue we will have at most one level at a time so auxillary space required is theta(w) where w is width of binary tree 
 
+// all in one line
+/* void levelOrderTraversal (Node* root) {
+    if (root == NULL)
+        return;
+
+    queue <Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        Node* curr = q.front();
+        cout << curr->key << " ";
+        q.pop();
+        if (curr->left != NULL)
+            q.push(curr->left);
+        if (curr->right != NULL)
+            q.push(curr->right);
+    }
+    cout << endl;
+}
+*/
+
+// line by line
 void levelOrderTraversal (Node* root) {
     if (root == NULL)
         return;
@@ -121,6 +143,7 @@ void levelOrderTraversal (Node* root) {
     cout << endl;
 }
 
+// my way, not the best
 /* void levelOrderTraversal (Node* root) {
     if (root == NULL)
         return;
@@ -151,6 +174,8 @@ void levelOrderTraversal (Node* root) {
     cout << endl;
 }
 */
+
+//
 
 int main () {
     Node* root = new Node (10);
