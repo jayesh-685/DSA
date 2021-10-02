@@ -174,8 +174,30 @@ void levelOrderTraversal (Node* root) {
     cout << endl;
 }
 */
+// time complexity is theta(n+h) but since h<n so time complexity is theta(n)
+// aux space is still theta(h) because max size of queue is h+1 and 1 is a constant
 
-//
+// one more way, using two loops
+
+void levelOrderTraversal2 (Node* root) {
+    if (root == NULL)
+        return;
+
+    queue <Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int count = q.size();
+        for (int i=0; i<count; i++) {
+            Node* curr = q.front();
+            q.pop();
+            cout << curr->key << " ";
+            if (curr->left != NULL) q.push(curr->left);
+            if (curr->right != NULL) q.push(curr->right);
+        }
+        cout << endl;
+    }
+}
 
 int main () {
     Node* root = new Node (10);
@@ -190,5 +212,5 @@ int main () {
     //cout << getHeight(root) << endl;
     // printNodesK(root, 2);
     // cout << endl;
-    levelOrderTraversal(root);
+    levelOrderTraversal2(root);
 }
