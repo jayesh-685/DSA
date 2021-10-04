@@ -199,6 +199,39 @@ void levelOrderTraversal2 (Node* root) {
     }
 }
 
+int sizeOfTree (Node* root) {
+    if (root == NULL)
+        return 0;
+    else
+        return sizeOfTree(root->left) + sizeOfTree(root->right) + 1;
+}
+// since we visit each node exactly once, time complexity is O(n)
+// at any moment, the maximum no of funcion calls would be h+1 where h is height of binray tree (+ 1 because of root = null case) so aux space required is O(h)
+
+// iterative solution
+
+int IsizeOfTree (Node* root) {
+    if (root == NULL)
+        return 0;
+    
+    queue <Node*> q;
+    q.push(root);
+    int size = 1;
+
+    while (!q.empty()) {
+        Node* curr = q.front();
+        q.pop();
+        if (curr->left != NULL) {
+            q.push(curr->left);
+            size++;
+        }
+        if (curr->right != NULL) {
+            q.push(curr->right);
+            size++;
+        }
+    }
+    return size;
+}
 
 int main () {
     Node* root = new Node (10);
@@ -213,5 +246,6 @@ int main () {
     //cout << getHeight(root) << endl;
     // printNodesK(root, 2);
     // cout << endl;
-    levelOrderTraversal2(root);
+    //levelOrderTraversal2(root);
+    cout << IsizeOfTree(root) << endl;
 }
