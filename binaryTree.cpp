@@ -232,6 +232,17 @@ int IsizeOfTree (Node* root) {
     }
     return size;
 }
+// time complexity is O(n) and aux space required is O(w) w = width of binary tree
+
+int getMax (Node* root) {
+    if (root == NULL)
+        return INT_MIN;
+    return max(root->key, max(getMax(root->left), getMax(root->right)));
+}
+// time complexity is O(n) and aux space required is O(h)
+
+// can also be done iteratively like level order traversal using a queue
+// time complexity is O(n) and aux space required is O(w)
 
 int main () {
     Node* root = new Node (10);
@@ -247,5 +258,6 @@ int main () {
     // printNodesK(root, 2);
     // cout << endl;
     //levelOrderTraversal2(root);
-    cout << IsizeOfTree(root) << endl;
+    //cout << IsizeOfTree(root) << endl;
+    cout << getMax(root) << endl;
 }
