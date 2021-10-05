@@ -244,6 +244,53 @@ int getMax (Node* root) {
 // can also be done iteratively like level order traversal using a queue
 // time complexity is O(n) and aux space required is O(w)
 
+// print left view of binary tree
+// print the left most element at each level
+
+// iterative solution
+void leftView (Node* root) {
+    if (root == NULL)
+        return;
+    
+    queue <Node*> q;
+    q.push(NULL);
+    q.push(root);
+
+    while (q.size() > 1) {
+        Node* curr = q.front();
+        q.pop();
+        if (curr == NULL) {
+            q.push(NULL);
+            cout << q.front()->key << endl;
+            continue;
+        }
+        if (curr->left != NULL) q.push(curr->left);
+        if (curr->right != NULL) q.push(curr->right);
+    }
+}
+// theta(n) theta(w)
+
+// can also do using 2 loops, just print only when i = 0
+void leftView2 (Node* root) {
+    if (root == NULL)
+        return;
+
+    queue <Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int count = q.size();
+        for (int i=0; i<count; i++) {
+            Node* curr = q.front();
+            q.pop();
+            if (i == 0)
+                cout << curr->key << endl;
+            if (curr->left != NULL) q.push(curr->left);
+            if (curr->right != NULL) q.push(curr->right);
+        }
+    }
+}
+
 int main () {
     Node* root = new Node (10);
     root->left = new Node (5);
@@ -259,5 +306,6 @@ int main () {
     // cout << endl;
     //levelOrderTraversal2(root);
     //cout << IsizeOfTree(root) << endl;
-    cout << getMax(root) << endl;
+    //cout << getMax(root) << endl;
+    leftView2(root);
 }
