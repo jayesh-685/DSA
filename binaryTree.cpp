@@ -291,6 +291,27 @@ void leftView2 (Node* root) {
     }
 }
 
+// recursive solution
+// we will use preorder traversal for this
+
+int maxLevel = 0;
+
+void printLeftView (Node* root, int currLevel) {
+    if (root == NULL)
+        return;
+        
+    if (currLevel > maxLevel) {
+        cout << root->key << endl;
+        maxLevel = currLevel;
+    }
+    printLeftView(root->left, currLevel+1);
+    printLeftView(root->right, currLevel+1);
+}
+
+void leftViewRecursive (Node* root) {
+    printLeftView(root, 1);
+}
+
 int main () {
     Node* root = new Node (10);
     root->left = new Node (5);
@@ -307,5 +328,5 @@ int main () {
     //levelOrderTraversal2(root);
     //cout << IsizeOfTree(root) << endl;
     //cout << getMax(root) << endl;
-    leftView2(root);
+    leftViewRecursive(root);
 }
