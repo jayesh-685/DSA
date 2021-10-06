@@ -312,15 +312,27 @@ void leftViewRecursive (Node* root) {
     printLeftView(root, 1);
 }
 
+// if for every node its value is equal to sum of left and right node (if they exixst) then tree is said to satisfy children sum property
+bool childrenSum (Node* root) {
+    if (root == NULL)
+        return true;
+    if (childrenSum(root->left) && childrenSum(root->right)) {
+        if (root->key == root->left->key + root->right->key)
+            return true;
+        return false;
+    }
+    return false;
+}
+
 int main () {
-    Node* root = new Node (10);
-    root->left = new Node (5);
-    root->right = new Node (20);
-    root->left->left = new Node (2);
-    root->left->right = new Node (7);
-    root->right->left = new Node (10);
-    root->right->right = new Node (30);
-    root->left->left->left = new Node (1);
+    Node* root = new Node (30);
+    root->left = new Node (12);
+    root->right = new Node (18);
+    root->left->left = new Node (6);
+    root->left->right = new Node (6);
+    root->right->left = new Node (6);
+    root->right->right = new Node (12);
+    root->left->left->left = new Node (6);
     //postorderTraverse(root);
     //cout << getHeight(root) << endl;
     // printNodesK(root, 2);
@@ -328,5 +340,6 @@ int main () {
     //levelOrderTraversal2(root);
     //cout << IsizeOfTree(root) << endl;
     //cout << getMax(root) << endl;
-    leftViewRecursive(root);
+    //leftViewRecursive(root);
+    cout << childrenSum(root);
 }
