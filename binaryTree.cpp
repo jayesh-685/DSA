@@ -318,13 +318,10 @@ bool childrenSum (Node* root) {
         return true;
     if (root->left == NULL && root->right == NULL)
         return true;
-    if (childrenSum(root->left) && childrenSum(root->right)) {
-        int sum = 0;
-        if (root->left != NULL) sum += root->left->key;
-        if (root->right != NULL)  sum += root->right->key;
-        return sum == root->key;
-    }
-    return false;
+    int sum = 0;
+    if (root->left != NULL) sum += root->left->key;
+    if (root->right != NULL)  sum += root->right->key;
+    return sum == root->key && childrenSum(root->left) && childrenSum(root->right);
 }
 
 int main () {
