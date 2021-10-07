@@ -323,6 +323,7 @@ bool childrenSum (Node* root) {
     if (root->right != NULL)  sum += root->right->key;
     return sum == root->key && childrenSum(root->left) && childrenSum(root->right);
 }
+// O(n) O(h)
 
 int main () {
     Node* root = new Node (30);
