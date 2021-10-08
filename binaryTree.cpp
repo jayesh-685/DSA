@@ -334,7 +334,18 @@ bool isBalanced (Node* root) {
     int leftH = getHeight(root->left);
     int rightH = getHeight(root->right);
     return (abs(leftH-rightH)<=1 && isBalanced(root->left) && isBalanced(root->right));
-} // O(n^2) because we are first calling for n nodes then n-1 nodes then n-2 and so on
+} // O(n^2) because we are calling getHeight function for each node
+
+// can be optimized if we get size of tree and check if it is balanced or not in a single function call, so we can return a pair or we can return -1 if tree is unbalanced and otherwise return height of tree(>=0)
+
+int isBalanced2 (Node* root) {
+    if (root == NULL)  return 0;
+    int leftH = isBalanced2(root->left);
+    int rightH = isBalanced2(root->right);
+    
+    return (leftH!=-1 && rightH!=-1 && abs(leftH-rightH)<=1) ? max(leftH, rightH)+1 : -1;
+}
+// traversing every node exactly once so O(n)
 
 int main () {
     Node* root = new Node (30);
@@ -354,5 +365,5 @@ int main () {
     //cout << getMax(root) << endl;
     //leftViewRecursive(root);
     //cout << childrenSum(root);
-    cout << isBalanced(root);
+    cout << isBalanced2(root);
 }
