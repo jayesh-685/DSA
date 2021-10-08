@@ -330,9 +330,10 @@ bool childrenSum (Node* root) {
 // we use the previously done getHeight function
 
 bool isBalanced (Node* root) {
+    if (root == NULL)   return true;
     int leftH = getHeight(root->left);
     int rightH = getHeight(root->right);
-    return (leftH == rightH && isBalanced(root->left) && isBalanced(root->right));
+    return (abs(leftH-rightH)<=1 && isBalanced(root->left) && isBalanced(root->right));
 } // O(n^2) because we are first calling for n nodes then n-1 nodes then n-2 and so on
 
 int main () {
@@ -352,5 +353,6 @@ int main () {
     //cout << IsizeOfTree(root) << endl;
     //cout << getMax(root) << endl;
     //leftViewRecursive(root);
-    cout << childrenSum(root);
+    //cout << childrenSum(root);
+    cout << isBalanced(root);
 }
