@@ -325,6 +325,16 @@ bool childrenSum (Node* root) {
 }
 // O(n) O(h)
 
+// check for balanced tree
+// tree is balanced if the diff in height of left and right sub tree is atmost 1
+// we use the previously done getHeight function
+
+bool isBalanced (Node* root) {
+    int leftH = getHeight(root->left);
+    int rightH = getHeight(root->right);
+    return (leftH == rightH && isBalanced(root->left) && isBalanced(root->right));
+} // O(n^2) because we are first calling for n nodes then n-1 nodes then n-2 and so on
+
 int main () {
     Node* root = new Node (30);
     root->left = new Node (12);
