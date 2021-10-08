@@ -366,4 +366,5 @@ int main () {
     //leftViewRecursive(root);
     //cout << childrenSum(root);
     cout << isBalanced2(root);
+    
 }
