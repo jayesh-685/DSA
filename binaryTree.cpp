@@ -346,7 +346,7 @@ int isBalanced2 (Node* root) {
     return (leftH!=-1 && rightH!=-1 && abs(leftH-rightH)<=1) ? max(leftH, rightH)+1 : -1;
 }
 // traversing every node exactly once so O(n)
-
+//
 int main () {
     Node* root = new Node (30);
     root->left = new Node (12);
