@@ -393,6 +393,9 @@ int isBalanced2(Node *root)
 
 int maxWidth(Node *root)
 {
+    if (root == NULL)
+        return 0;
+    int count = 0;
     int maxCount = 0;
     queue<Node *> q;
     q.push(root);
@@ -407,10 +410,12 @@ int maxWidth(Node *root)
             if (curr->right != NULL)
                 q.push(curr->right);
         }
-        maxCount = (maxCount > q.size()) ? maxCount : q.size();
+        int count = q.size();
+        maxCount = max(count, maxCount);
     }
     return maxCount;
-}
+} // theta(n) theta(w)
+
 int main()
 {
     Node *root = new Node(30);
