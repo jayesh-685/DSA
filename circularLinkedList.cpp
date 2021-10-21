@@ -123,6 +123,21 @@ Node* deleteKthNode (Node* head, int k) {
     delete temp;
     return head; 
 }
+
+bool detectLoopFloydCycle (Node* head) {
+    Node* fast = head;
+    Node* slow = head;
+    while (fast!=NULL && fast->next!=NULL) {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (fast == slow)
+            return true;
+    }
+    return false;
+}
+// The distance b/w fast and slow node increases by one after each titration and when it becomes equal to length of the loop they meet and we know it's a loop
+// O(n+m) where n is the no of nodes in the loop and m are the remaining nodes so it equivalent to O(N) where N is no of nodes in the linked list
+
 int main () {
     // Node *head=new Node(10);
 	// Node *temp1=new Node(20);
