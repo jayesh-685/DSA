@@ -416,6 +416,8 @@ int maxWidth(Node *root)
     return maxCount;
 } // theta(n) theta(w)
 
+// convert binary tree to doubly linked list, use left pointer as prev and right as next, use inorder traversal to determine order of list, use the space already allocated for tree
+
 int main()
 {
     Node *root = new Node(30);

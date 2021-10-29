@@ -1,19 +1,19 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-class node
+class Node
 {
 public:
 	string data;
-	node* next;
-	node* child;
+	Node* next;
+	Node* child;
 	int stock;
-	node()
+	Node()
 	{
 		next = NULL;
 		child = NULL;
 	}
-	node(string s, int n)
+	Node(string s, int n)
 	{
 		data = s;
 		stock = n;
@@ -22,13 +22,13 @@ public:
 	}
 };
 
-bool isPresent(node* head, string s)
+bool checkPresent(Node* head, string s)
 {
 	if(head == NULL)
 	{
 		return false;
 	}
-	node* temp = head;
+	Node* temp = head;
 	while(temp != NULL && temp -> data != s)
 	{
 		temp = temp -> next;
@@ -40,25 +40,25 @@ bool isPresent(node* head, string s)
 	return true;
 }
 
-bool isThere(node* head, string s)
+bool isThere(Node* head, string s)
 {
 	if(s.length() == 2)
 	{
-		return isPresent(head, s);
+		return checkPresent(head, s);
 	}
 	else if(s.length() == 4)
 	{
 		string ab = s.substr(0, 2);
 		string cd = s.substr(2, 2);
-		bool p1 = isPresent(head, ab);
+		bool p1 = checkPresent(head, ab);
 		if(p1)
 		{
-			node* temp = head;
+			Node* temp = head;
 			while(temp -> data != ab)
 			{
 				temp = temp -> next;
 			}
-			return isPresent(temp -> child, cd);
+			return checkPresent(temp -> child, cd);
 		}
 		return false;
 	}
@@ -67,23 +67,23 @@ bool isThere(node* head, string s)
 		string ab = s.substr(0, 2);
 		string cd = s.substr(2, 2);
 		string ef = s.substr(4, 2);
-		bool p1 = isPresent(head, ab);
+		bool p1 = checkPresent(head, ab);
 		if(p1)
 		{
-			node* temp1 = head;
+			Node* temp1 = head;
 			while(temp1 -> data != ab)
 			{
 				temp1 = temp1 -> next;
 			}
-			bool p2 = isPresent(temp1 -> child, cd);
+			bool p2 = checkPresent(temp1 -> child, cd);
 			if(p2)
 			{
-				node* temp2 = temp1 -> child;
+				Node* temp2 = temp1 -> child;
 				while(temp2 -> data != cd)
 				{
 					temp2 = temp2 -> next;
 				}
-				return isPresent(temp2 -> child, ef);
+				return checkPresent(temp2 -> child, ef);
 			}
 			return false;
 		}
@@ -92,7 +92,7 @@ bool isThere(node* head, string s)
 	return false;
 }
 
-int findLength(node* head)
+int findLength(Node* head)
 {
 	int len = 0;
 	while(head != NULL)
@@ -103,9 +103,9 @@ int findLength(node* head)
 	return len;
 }
 
-node* getNode(node*& head, int pos)
+Node* getNode(Node*& head, int pos)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(pos--)
 	{
 		temp = temp -> next;
@@ -113,36 +113,36 @@ node* getNode(node*& head, int pos)
 	return temp;
 }
 
-void insertAtTail(node*& head, string s, int n)
+void insertAtTail(Node*& head, string s, int n)
 {
-	node* new_node = new node(s, n);
+	Node* new_Node = new Node(s, n);
 	if(head == NULL)
 	{
-		head = new_node;
+		head = new_Node;
 	}
 	else
 	{
-		node* temp = head;
+		Node* temp = head;
 		while(temp -> next != NULL)
 		{
 			temp = temp -> next;
 		}
-		temp -> next = new_node;
+		temp -> next = new_Node;
 	}
 }
 
-void deleteNode(node*& head, string s)
+void deleteNode(Node*& head, string s)
 {
 	if(head -> data == s)
 	{
-		node* temp = head;
+		Node* temp = head;
 		head = head -> next;
 		delete temp;
 	}
 	else
 	{
-		node* curr = head -> next;
-		node* prev = head;
+		Node* curr = head -> next;
+		Node* prev = head;
 		while(curr -> data != s)
 		{
 			curr = curr -> next;
@@ -153,9 +153,9 @@ void deleteNode(node*& head, string s)
 	}
 }
 
-void updateNode(node*& head, string s, int n)
+void updateNode(Node*& head, string s, int n)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(temp -> data != s)
 	{
 		temp = temp -> next;
@@ -167,9 +167,9 @@ void updateNode(node*& head, string s, int n)
 	}
 }
 
-void insertMainProduct(node*& head, string ab, int n)
+void insertMainProduct(Node*& head, string ab, int n)
 {
-	if(!isPresent(head, ab))
+	if(!checkPresent(head, ab))
 	{
 		insertAtTail(head, ab, n);
 	}
@@ -179,36 +179,36 @@ void insertMainProduct(node*& head, string ab, int n)
 	}
 }
 
-void insertSubCategory(node*& head, string ab, string cd, int n)
+void insertSubCategory(Node*& head, string ab, string cd, int n)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(temp -> data != ab)
 	{
 		temp = temp -> next;
 	}
-	if(!isPresent(temp -> child, cd))
+	if(!checkPresent(temp -> child, cd))
 	{
 		insertAtTail(temp -> child, cd, n);
 	}
-	else
+	else 
 	{
 		updateNode(temp -> child, cd, n);
 	}
 }
 
-void insertSubSubCategory(node*& head, string ab, string cd, string ef, int n)
+void insertSubSubCategory(Node*& head, string ab, string cd, string ef, int n)
 {
-	node* temp1 = head;
+	Node* temp1 = head;
 	while(temp1 -> data != ab)
 	{
 		temp1 = temp1 -> next;
 	}
-	node* temp2 = temp1 -> child;
+	Node* temp2 = temp1 -> child;
 	while(temp2 -> data != cd)
 	{
 		temp2 = temp2 -> next;
 	}
-	if(!isPresent(temp2 -> child, ef))
+	if(!checkPresent(temp2 -> child, ef))
 	{
 		insertAtTail(temp2 -> child, ef, n);
 	}
@@ -218,9 +218,9 @@ void insertSubSubCategory(node*& head, string ab, string cd, string ef, int n)
 	}
 }
 
-int findMainStock(node*& head, string ab)
+int findMainStock(Node*& head, string ab)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(temp -> data != ab)
 	{
 		temp = temp -> next;
@@ -228,9 +228,9 @@ int findMainStock(node*& head, string ab)
 	return temp -> stock;
 }
 
-int findSubCategoryStock(node*& head, string ab, string cd)
+int findSubCategoryStock(Node*& head, string ab, string cd)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(temp -> data != ab)
 	{
 		temp = temp -> next;
@@ -243,9 +243,9 @@ int findSubCategoryStock(node*& head, string ab, string cd)
 	return temp -> stock;
 }
 
-int findSubSubCategoryStock(node*& head, string ab, string cd, string ef)
+int findSubSubCategoryStock(Node*& head, string ab, string cd, string ef)
 {
-	node* temp = head;
+	Node* temp = head;
 	while(temp -> data != ab)
 	{
 		temp = temp -> next;
@@ -263,13 +263,13 @@ int findSubSubCategoryStock(node*& head, string ab, string cd, string ef)
 	return temp -> stock;
 }
 
-void traverse(node* head, map <string, int>& prod_to_stock, vector <string>& prods)
+void traverse(Node* head, map <string, int>& prod_to_stock, vector <string>& prods)
 {
-	node* temp1 = head;
+	Node* temp1 = head;
 	while(temp1)
 	{
 		prod_to_stock[temp1 -> data] = temp1 -> stock;
-		node* temp2 = temp1 -> child;
+		Node* temp2 = temp1 -> child;
 		while(temp2)
 		{
 			prod_to_stock[temp1 -> data + temp2 -> data] = temp2 -> stock;
@@ -280,10 +280,10 @@ void traverse(node* head, map <string, int>& prod_to_stock, vector <string>& pro
 	}
 }
 
-void merge(node*& head, int n, int m)
+void merge(Node*& head, int n, int m)
 {
-	node* a = getNode(head, n);
-	node* b = getNode(head, m);
+	Node* a = getNode(head, n);
+	Node* b = getNode(head, m);
 	if((a -> data)[0] != '0' || (b -> data)[0] != '0')
 	{
 		return;
@@ -291,8 +291,8 @@ void merge(node*& head, int n, int m)
 	string ab_new = (a -> data).substr(1, 1) + (b -> data).substr(1, 1);
 	int stock_new = a -> stock + b -> stock;
 
-	node* a_cat = a -> child;
-	node* b_cat = b -> child;
+	Node* a_cat = a -> child;
+	Node* b_cat = b -> child;
 
 	map <string, int> prod_to_stock;
 	vector <string> prods;
@@ -313,16 +313,16 @@ void merge(node*& head, int n, int m)
 	deleteNode(head, b -> data);
 }
 
-void print(node* head)
+void print(Node* head)
 {
 	while(head)
 	{
 		string ab = head -> data;
-		node* cat = head -> child;
+		Node* cat = head -> child;
 		while(cat)
 		{
 			string cd = cat -> data;
-			node* sub = cat -> child;
+			Node* sub = cat -> child;
 			while(sub)
 			{
 				cout << ab << cd << sub -> data << " " << sub -> stock << endl;
@@ -338,7 +338,7 @@ int main()
 {
 	int q;
 	cin >> q;
-	node* head = NULL;
+	Node* head = NULL;
 	while(q--)
 	{
 		char op;

@@ -36,6 +36,15 @@ void recursionTraverse (Node *head) {
     recursionTraverse(head->next);
 }
 
+int getElements (Node* head) {
+    int count = 0;
+    while (head != NULL) {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
 Node* insertBegin (Node *head, int element) {
     // to add an element at start of linked list
     Node *newHead = new Node (element);
@@ -102,17 +111,19 @@ Node *insertPos (Node *head, int data, int pos) {
     return head;
 }
 
-// int searchLL (Node * head, int x) {
-//     Node *curr = head;
-//     int pos = 1;
-//     while (curr != NULL) {
-//         if (curr->data == x)
-// 	        return pos;
-//         curr = curr->next;
-//         pos++;
-//     }
-//     return -1;
-// }
+/*
+int searchLL (Node * head, int x) {
+    Node *curr = head;
+    int pos = 1;
+    while (curr != NULL) {
+        if (curr->data == x)
+	        return pos;
+        curr = curr->next;
+        pos++;
+    }
+    return -1;
+}
+*/
 
 // recursive solution
 // int searchLL (Node * head, int x, int pos) {
@@ -248,6 +259,24 @@ void removeDuplicate (Node* head) {
     }
 }
 
+Node* deleteNode (Node* head, int element) {
+    if (head->data == element) {
+        Node* temp = head->next;
+        delete head;
+        return temp;
+    }
+    
+    Node* curr = head;
+    
+    while (curr->next->data != element)
+        curr = curr->next;
+    
+    Node* temp = curr->next;
+    curr->next = curr->next->next;
+    delete temp;
+    return head;
+}
+
 int main() 
 { 
     // simple implementation
@@ -281,14 +310,16 @@ int main()
     traverse(head);
     //head = deleteHead(head);
     //head = deleteTail(head);
-    // head = insertPos(head, 25, 6);
+    head = insertPos(head, 25, 3);
     // traverse(head);
     //cout << searchLL (head, 10) << endl;
     // head = insertSorted(head, 20);
     // traverse(head);  
     //middleElement(head);
     //nFromEnd(head, 4);
-    removeDuplicate(head);
+    //removeDuplicate(head);
+    //head = deleteNode(head, 40);
     traverse(head);
+    //cout << getElements(head);
     return 0;
 } 
