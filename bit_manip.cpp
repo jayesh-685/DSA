@@ -5,6 +5,10 @@ using namespace std;
 
 The operators ||, &&, and ! act on each entire operand as a single true/false value. Any data type can be used that implicitly converts to bool. Many data types, including float implicitly convert to bool with an implied !=0 operation. */
 
+// property about left shift operator ( << )
+// if we assume that the leading y bits are 0, then x << y is equivalent to x * 2^y
+// similarly x >> y is equivalent to floor (x/2^y)
+
 int getBit (int n, int pos) {
     // if we want to know which digit is at a given position in a binary number
     // we can create a number with 1 at the given position (using left shift operator)
