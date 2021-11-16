@@ -5,6 +5,24 @@ using namespace std;
 
 The operators ||, &&, and ! act on each entire operand as a single true/false value. Any data type can be used that implicitly converts to bool. Many data types, including float implicitly convert to bool with an implied !=0 operation. */
 
+/* property about left shift operator ( << )
+if we assume that the leading y bits are 0, then x << y is equivalent to x * 2^y
+similarly x >> y is equivalent to floor (x/2^y) */
+
+/* bitwise not operator ( ~ )   
+inverts all the bits
+if we have n bits then the maximum no we can have is 2^n - 1 ( ex for 3 bits max no is 7 which is 111)
+if we have 32 bits max no we can have is 2^32 -1 which is 4,29,49,67,295 which is 111.....111 (32 one's)
+for unsigned integers:
+so if x is 1 (000....001) then ~x is 111....110 so it is 2^32 - 1 - 1 which is 4,29,49,67,294
+if x is 5 (000....0101) then ~x is 111....1010 which is 2^32 - 1 - 5 which is 4,29,49,67,290 */
+
+// for signed integers:
+/*
+we use 31 bits to represent the no and the leading one bit to represent if it's positive or negative - 0 if it's positive and 1 if it is negative
+so ~ of a positive no is going to be a negative integer 
+*/
+
 int getBit (int n, int pos) {
     // if we want to know which digit is at a given position in a binary number
     // we can create a number with 1 at the given position (using left shift operator)
